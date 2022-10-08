@@ -321,6 +321,51 @@ namespace simpleparser {
 
         return whileLoop;
     }
+    optional<Statement> Parser::expect_If() {
+        Statement if_state{"", Type{"void", VOID}, {}, StatementKind::IF_STATE};
+
+        size_t lineNo = (mCurrentToken != mEndToken) ? mCurrentToken->mLineNumber : SIZE_MAX;
+        if (!expectIdentifier("if")) {
+            return nullopt;
+        }
+
+        if (!expectOperator("(")) {
+            throw runtime_error(string("Expected opening parenthesis after \"if\" on line ") + to_string(lineNo) + ".");
+        }
+
+        if (mCurrentToken != mEndToken) {
+            lineNo = mCurrentToken->mLineNumber;
+        }
+        optional<Statement> condition = expectExpression();
+        if (!condition) {
+            throw runtime_error(string("Expected loop condition after \"if\" statement on line ") + to_string(lineNo) + ".");
+        }
+
+        if_state.mParameters.push_back(condition.value());
+
+        if (!expectOperator(")")) {
+            throw runtime_error(string("Expected closing parenthesis after \"if\" condition on line ") + to_string(lineNo) + ".");
+        }
+
+        if (!expectOperator("{")) {
+            throw runtime_error(string("Expected opening curly bracket after \"if\" condition on line ") + to_string(lineNo) + ".");
+        }
+
+        while (mCurrentToken != mEndToken && !expectOperator("}")) {
+            auto currentStatement = expectStatement();
+            if (!currentStatement) {
+                break;
+            }
+            if_state.mParameters.push_back(currentStatement.value());
+
+            if (!expectOperator(";").has_value()) {
+                size_t lineNo = (mCurrentToken != mEndToken) ? mCurrentToken->mLineNumber : 999999;
+                throw runtime_error(string("Expected ';' at end of statement in line ") + to_string(lineNo) + ".");
+            }
+        }
+
+        return if_state;
+    }
 
     optional<Statement> Parser::expectStatement() {
         optional<Statement> result = expectWhileLoop();

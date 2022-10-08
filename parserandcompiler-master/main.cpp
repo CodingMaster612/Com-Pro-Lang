@@ -248,7 +248,7 @@ int main(int argc, const char* argv[]) {
         //     throw runtime_error("First argument must be script file to run.");
         // }
 
-        FILE *fh = fopen("C:\\Users\\Tim\\Desktop\\parserandcompiler-master (3)\\parserandcompiler-master\\parserandcompilertest.myc", "r");
+        FILE *fh = fopen("C:\\Users\\Tim\\Documents\\GitHub\\Com-Pro-Lang\\Compile.myc", "r");
         if (!fh) { cerr << "Can't find file." << endl; }
         fseek(fh, 0, SEEK_END);
         size_t fileSize = ftell(fh);

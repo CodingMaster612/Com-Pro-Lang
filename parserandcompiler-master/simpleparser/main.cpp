@@ -19,7 +19,7 @@ int main()
         std::cout << "simpleparser 0.1\n"
                   << endl;
 
-        FILE *fh = fopen("C:\\Users\\Tim\\Desktop\\parserandcompiler-master (3)\\parserandcompiler-master\\simpleparser\\test.myc", "r");
+        FILE *fh = fopen("C:\\Users\\Tim\\Documents\\GitHub\\Com-Pro-Lang\\parserandcompiler-master\\simpleparser\\FunctionTest.myc", "r");
         if (!fh)
         {
             cerr << "Can't find file." << endl;

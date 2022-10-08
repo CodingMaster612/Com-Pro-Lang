@@ -45,6 +45,8 @@ namespace simpleparser {
 
         optional<Statement> expectWhileLoop();
 
+        optional<Statement> expect_If();
+
         optional<Statement> expectStatement();
 
         optional<Statement> expectVariableDeclaration();
