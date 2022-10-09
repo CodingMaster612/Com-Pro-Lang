@@ -49,7 +49,7 @@ namespace simpleparser {
 
         optional<Statement> expectStatement();
 
-        optional <Statement> expectStatement_state();
+        
 
         optional<Statement> expectVariableDeclaration();
 

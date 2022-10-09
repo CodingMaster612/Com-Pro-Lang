@@ -18,7 +18,7 @@ namespace simpleparser {
         POTENTIAL_DOUBLE,
         POTENTIAL_COMMENT,
         COMMENT,
-        IF,
+        
     };
 
     static const char *sTokenTypeStrings[] = {
@@ -32,7 +32,7 @@ namespace simpleparser {
         "POTENTIAL_DOUBLE",
         "POTENTIAL_COMMENT",
         "COMMENT",
-        "IF",
+        
     };
 
     class Token {

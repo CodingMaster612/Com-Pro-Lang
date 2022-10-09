@@ -1,5 +1,4 @@
-
-#include "if_state.cpp"
+#include "Parser.hpp"
 
 #include <iostream>
 
@@ -353,8 +352,30 @@ namespace simpleparser
                 throw runtime_error(string("Expected ',' to separate parameters, found '") + mCurrentToken->mText + "'.");
             }
         }
+        Statement If_state_call;
+        If_state_call.mKind = StatementKind::IF;
+        If_state_call.mName = possibleFunctionName->mText;
+        while (!expectOperator(")").has_value())
+        {
+            optional<Statement> parameter = expectExpression();
+            if (!parameter.has_value())
+            {
+                throw runtime_error("Expected expression as parameter.");
+            }
+            If_state_call.mParameters.push_back(parameter.value());
 
-        return functionCall;
+            if (expectOperator(")").has_value())
+            {
+                break;
+            }
+            if (!expectOperator(",").has_value())
+            {
+                // TODO: Check whether we still have a current token.
+                throw runtime_error(string("Expected ',' to separate parameters, found '") + mCurrentToken->mText + "'.");
+            }
+        }
+
+        return functionCall, If_state_call;
     }
 
     optional<Statement> Parser::expectWhileLoop()
@@ -412,13 +433,10 @@ namespace simpleparser
 
         return whileLoop;
     }
-    
 
     optional<Statement> Parser::expectStatement()
     {
         optional<Statement> result = expectWhileLoop();
-        
-       
 
         if (!result.has_value())
         {
@@ -428,7 +446,7 @@ namespace simpleparser
         {
             result = expectExpression();
         }
-        
+
         return result;
     }
 
@@ -513,5 +531,4 @@ namespace simpleparser
         }
         return foundOperator->second.mPrecedence;
     }
-
 }

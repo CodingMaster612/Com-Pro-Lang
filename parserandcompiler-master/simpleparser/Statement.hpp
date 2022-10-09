@@ -29,6 +29,7 @@ namespace simpleparser {
         "WHILE_LOOP",
         "IF",
         
+        //create something like function call for if statements
         
     };
 
@@ -38,6 +39,7 @@ namespace simpleparser {
         Type mType{Type("void", VOID)};
         vector<Statement> mParameters;
         StatementKind mKind{StatementKind::FUNCTION_CALL};
+        
 
         void debugPrint(size_t indent);
     };
