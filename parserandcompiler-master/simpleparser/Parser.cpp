@@ -332,50 +332,52 @@ namespace simpleparser
         Statement functionCall;
         functionCall.mKind = StatementKind::FUNCTION_CALL;
         functionCall.mName = possibleFunctionName->mText;
+        size_t lineNo = (mCurrentToken != mEndToken) ? mCurrentToken->mLineNumber : SIZE_MAX;
 
-        while (!expectOperator(")").has_value())
+        // if (!expectOperator("("))
+        // {
+        //     throw runtime_error(string("Expected opening parenthesis after \"if\" on line ") + to_string(lineNo) + ".");
+        // }
+
+        if (mCurrentToken != mEndToken)
         {
-            optional<Statement> parameter = expectExpression();
-            if (!parameter.has_value())
-            {
-                throw runtime_error("Expected expression as parameter.");
-            }
-            functionCall.mParameters.push_back(parameter.value());
+            lineNo = mCurrentToken->mLineNumber;
+        }
+        optional<Statement> condition = expectExpression();
+        if (!condition)
+        {
+            throw runtime_error(string("Expected loop condition after \"if\" statement on line ") + to_string(lineNo) + ".");
+        }
 
-            if (expectOperator(")").has_value())
+        functionCall.mParameters.push_back(condition.value());
+
+        if (!expectOperator(")"))
+        {
+            throw runtime_error(string("Expected closing parenthesis after \"()\" condition on line ") + to_string(lineNo) + ".");
+        }
+
+        if (!expectOperator("{"))
+        {
+            throw runtime_error(string("Expected opening curly bracket after \"(condition)\" condition on line ") + to_string(lineNo) + ".");
+        }
+
+        while (mCurrentToken != mEndToken && !expectOperator("}"))
+        {
+            auto currentStatement = expectStatement();
+            if (!currentStatement)
             {
                 break;
             }
-            if (!expectOperator(",").has_value())
-            {
-                // TODO: Check whether we still have a current token.
-                throw runtime_error(string("Expected ',' to separate parameters, found '") + mCurrentToken->mText + "'.");
-            }
-        }
-        Statement If_state_call;
-        If_state_call.mKind = StatementKind::IF;
-        If_state_call.mName = possibleFunctionName->mText;
-        while (!expectOperator(")").has_value())
-        {
-            optional<Statement> parameter = expectExpression();
-            if (!parameter.has_value())
-            {
-                throw runtime_error("Expected expression as parameter.");
-            }
-            If_state_call.mParameters.push_back(parameter.value());
+            functionCall.mParameters.push_back(currentStatement.value());
 
-            if (expectOperator(")").has_value())
+            if (!expectOperator(";").has_value())
             {
-                break;
-            }
-            if (!expectOperator(",").has_value())
-            {
-                // TODO: Check whether we still have a current token.
-                throw runtime_error(string("Expected ',' to separate parameters, found '") + mCurrentToken->mText + "'.");
+                size_t lineNo = (mCurrentToken != mEndToken) ? mCurrentToken->mLineNumber : 999999;
+                throw runtime_error(string("Expected ';' at end of statement in line ") + to_string(lineNo) + ".");
             }
         }
 
-        return functionCall, If_state_call;
+        return functionCall;
     }
 
     optional<Statement> Parser::expectWhileLoop()
