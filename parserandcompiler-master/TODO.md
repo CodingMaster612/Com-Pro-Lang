@@ -11,6 +11,10 @@ TO-DO LIST
 
 - implement more variables
 
+- add variables to main.cpp  line 100-117
+
+- add variables to parser.cpp
+
 
 
 LOG: write down what  you have tried to implement if else and else if statements

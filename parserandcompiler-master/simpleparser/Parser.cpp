@@ -246,6 +246,7 @@ namespace simpleparser
             result = stringLiteralStatement;
             ++mCurrentToken;
         }
+
         else if (expectOperator("(").has_value())
         {
             result = expectExpression();
@@ -329,12 +330,10 @@ namespace simpleparser
             return nullopt;
         }
 
-
-        Statement Function_if;
-        Function_if.mKind= StatementKind::IF;
-        Function_if.mName = possibleFunctionName->mText;
-        //size_t lineNo = (mCurrentToken != mEndToken) ? mCurrentToken->mLineNumber : SIZE_MAX;
-        
+        // Statement Function_if;
+        // Function_if.mKind= StatementKind::IF;
+        // Function_if.mName = possibleFunctionName->mText;
+        // size_t lineNo = (mCurrentToken != mEndToken) ? mCurrentToken->mLineNumber : SIZE_MAX;
 
         Statement functionCall;
         functionCall.mKind = StatementKind::FUNCTION_CALL;
@@ -434,7 +433,33 @@ namespace simpleparser
 
         return result;
     }
+    optional<Statement> Parser::Statements()
+    {
+        Statement State{"", Type{"void", VOID}, {}, StatementKind::IF};
+        size_t lineNo = (mCurrentToken != mEndToken) ? mCurrentToken->mLineNumber : SIZE_MAX;
 
+        while (!expectOperator(")").has_value())
+        {
+            optional<Statement> parameter = expectExpression();
+            if (!parameter.has_value())
+            {
+                throw runtime_error("Expected expression as parameter.");
+            }
+            State.mParameters.push_back(parameter.value());
+
+            if (expectOperator(")").has_value())
+            {
+                break;
+            }
+            if (!expectOperator(",").has_value())
+            {
+                // TODO: Check whether we still have a current token.
+                throw runtime_error(string("Expected ',' to separate parameters, found '") + mCurrentToken->mText + "'.");
+            }
+
+            return State;
+        }
+    }
     optional<Statement> Parser::expectExpression()
     {
         optional<Statement> lhs = expectOneValue();

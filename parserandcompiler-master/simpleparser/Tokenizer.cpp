@@ -90,6 +90,9 @@ namespace simpleparser
                 {
                     currentToken.mText.append(1, currCh);
                 }
+               
+
+                
                 
                 else
                 {

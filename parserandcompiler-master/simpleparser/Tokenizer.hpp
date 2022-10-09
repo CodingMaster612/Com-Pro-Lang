@@ -18,6 +18,11 @@ namespace simpleparser {
         POTENTIAL_DOUBLE,
         POTENTIAL_COMMENT,
         COMMENT,
+        IF_STATEMENT,
+        ELSE_STATEMENT,
+        ELIF_STATEMENT,
+
+        //add if, else, else if  statement here then implement in Tokenizer
         
     };
 
@@ -32,6 +37,12 @@ namespace simpleparser {
         "POTENTIAL_DOUBLE",
         "POTENTIAL_COMMENT",
         "COMMENT",
+        "IF_STATEMENT",
+        "ELSE_STATEMENT",
+        "ELIF_STATEMENT",
+         
+         
+         //add if, else, else if  statement here then implement in Tokenizer
         
     };
 

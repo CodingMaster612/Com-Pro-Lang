@@ -8,11 +8,18 @@ int main(int iterations) {
     int x = 0;
     while (x < iterations) {
         x = x + 1;
-        printNum(x);
+        print(x);
     };
 
     return(x + foo(77));
-}
+
+    
+
+    
+    
+
+;}
+
 
 
 
