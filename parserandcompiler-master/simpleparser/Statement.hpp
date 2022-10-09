@@ -15,7 +15,9 @@ namespace simpleparser {
         OPERATOR_CALL,
         VARIABLE_NAME,
         WHILE_LOOP,
-        IF_STATE,
+        IF,
+    
+       
     };
 
     static const char* sStatementKindStrings[] = {
@@ -25,7 +27,9 @@ namespace simpleparser {
         "OPERATOR_CALL",
         "VARIABLE_NAME",
         "WHILE_LOOP",
-        "IF_STATE",
+        "IF",
+        
+        
     };
 
     class Statement {

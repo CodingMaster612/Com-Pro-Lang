@@ -12,7 +12,8 @@ add_library(simpleparser_internals
         FunctionDefinition.hpp
         Type.cpp Type.hpp
         Statement.cpp
-        Statement.hpp)
+        Statement.hpp
+        if_state.cpp)
 
 add_executable(simpleparser main.cpp)
 

@@ -1,9 +1,16 @@
+
 int main(){
 
+ while(1 < 0 ){
 
-    while(1 < 0){
+
+ }
 
 
-        
-    }
 ;}
+
+int main_test(){
+
+
+   if();
+}

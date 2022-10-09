@@ -17,7 +17,8 @@ namespace simpleparser {
         STRING_ESCAPE_SEQUENCE,
         POTENTIAL_DOUBLE,
         POTENTIAL_COMMENT,
-        COMMENT
+        COMMENT,
+        IF,
     };
 
     static const char *sTokenTypeStrings[] = {
@@ -30,7 +31,8 @@ namespace simpleparser {
         "STRING_ESCAPE_SEQUENCE",
         "POTENTIAL_DOUBLE",
         "POTENTIAL_COMMENT",
-        "COMMENT"
+        "COMMENT",
+        "IF",
     };
 
     class Token {
