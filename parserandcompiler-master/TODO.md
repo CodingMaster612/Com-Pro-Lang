@@ -28,3 +28,7 @@ did not work moving on to implementing brackets{} to if statement. currently wor
 LOG: completed if statements and successfully ran the program with curly brackets {}
 
 LOG: did not complete if statement because it registered as a function call and wanted curly brackets {} back to the drawing board.
+
+LOG:: tried to make if statement work by setting it up in the parser with different names like statements.
+
+LOG:: success with preventing variable  name registering if as one of the variables

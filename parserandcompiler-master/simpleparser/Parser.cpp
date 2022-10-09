@@ -261,6 +261,9 @@ namespace simpleparser
             {
                 mCurrentToken = savedToken;
             }
+            if(!expectIdentifier("if")){
+                mCurrentToken = savedToken;
+            }
             else
             {
                 Statement variableNameStatement;
@@ -433,33 +436,7 @@ namespace simpleparser
 
         return result;
     }
-    optional<Statement> Parser::Statements()
-    {
-        Statement State{"", Type{"void", VOID}, {}, StatementKind::IF};
-        size_t lineNo = (mCurrentToken != mEndToken) ? mCurrentToken->mLineNumber : SIZE_MAX;
-
-        while (!expectOperator(")").has_value())
-        {
-            optional<Statement> parameter = expectExpression();
-            if (!parameter.has_value())
-            {
-                throw runtime_error("Expected expression as parameter.");
-            }
-            State.mParameters.push_back(parameter.value());
-
-            if (expectOperator(")").has_value())
-            {
-                break;
-            }
-            if (!expectOperator(",").has_value())
-            {
-                // TODO: Check whether we still have a current token.
-                throw runtime_error(string("Expected ',' to separate parameters, found '") + mCurrentToken->mText + "'.");
-            }
-
-            return State;
-        }
-    }
+    
     optional<Statement> Parser::expectExpression()
     {
         optional<Statement> lhs = expectOneValue();
