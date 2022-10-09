@@ -22,3 +22,5 @@ LOG: tried to make another function call with if_state_call
 did not work moving on to implementing brackets{} to if statement. currently works with if(x > 1) but not with  brackets {}
 
 LOG: completed if statements and successfully ran the program with curly brackets {}
+
+LOG: did not complete if statement because it registered as a function call and wanted curly brackets {} back to the drawing board.

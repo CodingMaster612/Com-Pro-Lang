@@ -12,7 +12,7 @@ int main(){
 int main_test(){
 
    if(1 < 0){
-      double name = 0;
+      
    }
 
    

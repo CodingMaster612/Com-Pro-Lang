@@ -15,6 +15,7 @@ namespace simpleparser {
         OPERATOR_CALL,
         VARIABLE_NAME,
         WHILE_LOOP,
+        IF,
         
     
        
@@ -27,6 +28,7 @@ namespace simpleparser {
         "OPERATOR_CALL",
         "VARIABLE_NAME",
         "WHILE_LOOP",
+        "IF",
         
         
         //create something like function call for if statements
