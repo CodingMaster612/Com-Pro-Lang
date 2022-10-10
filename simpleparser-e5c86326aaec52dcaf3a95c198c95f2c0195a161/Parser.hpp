@@ -53,7 +53,7 @@ namespace simpleparser {
 
         optional <Statement> expectExpression();
 
-        optional<Statement>expectLoopStatement();
+        optional<Statement>Conditional_statements();
 
         size_t operatorPrecedence(const string &operatorName);
 

@@ -71,7 +71,12 @@ namespace simpleparser {
                         currentToken.mText.append(1, currCh);
                     } else if (currentToken.mType == STRING_LITERAL) {
                         currentToken.mText.append(1, currCh);
-                    } else {
+
+                        
+                    } 
+                    
+                    
+                    else {
                         endToken(currentToken, tokens);
                         currentToken.mType = OPERATOR;
                         currentToken.mText.append(1, currCh);
@@ -91,11 +96,19 @@ namespace simpleparser {
                 case '>':
                 case ';':
                 case ',':
+                
                     if (currentToken.mType != STRING_LITERAL) {
                         endToken(currentToken, tokens);
                         currentToken.mType = OPERATOR;
                         currentToken.mText.append(1, currCh);
                         endToken(currentToken, tokens);
+
+                    // if(currentToken.mType != OPERATOR){
+                    //     endToken(currentToken, tokens);
+                    //     currentToken.mType = POTENTIAL_IF;
+                    //     currentToken.mText.append(1, currCh);
+                    //     endToken(currentToken, tokens);
+                    
                     } else {
                         currentToken.mText.append(1, currCh);
                     }
@@ -148,7 +161,7 @@ namespace simpleparser {
                         currentToken.mText.append(1, currCh);
                     }
                     break;
-
+                
                 default:
                     if (currentToken.mType == WHITESPACE || currentToken.mType == INTEGER_LITERAL
                                                             || currentToken.mType == DOUBLE_LITERAL) {
@@ -158,6 +171,16 @@ namespace simpleparser {
                     } else {
                         currentToken.mText.append(1, currCh);
                     }
+                    break;
+            }
+
+            switch(currCh){
+
+
+                
+
+
+                default:
                     break;
             }
         }

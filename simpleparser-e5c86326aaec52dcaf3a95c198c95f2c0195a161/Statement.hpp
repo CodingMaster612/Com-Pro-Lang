@@ -4,30 +4,36 @@
 #include <vector>
 #include "Type.hpp"
 
-namespace simpleparser {
+namespace simpleparser
+{
 
     using namespace std;
 
-    enum class StatementKind: int {
+    enum class StatementKind : int
+    {
         VARIABLE_DECLARATION,
         FUNCTION_CALL,
         LITERAL,
         OPERATOR_CALL,
         VARIABLE_NAME,
         WHILE_LOOP,
-        FOR_LOOP,
+        POTENTIAL_IF,
+
     };
 
-    static const char* sStatementKindStrings[] = {
+    static const char *sStatementKindStrings[] = {
         "VARIABLE_DECLARATION",
         "FUNCTION_CALL",
         "LITERAL",
         "OPERATOR_CALL",
         "VARIABLE_NAME",
-        "WHILE_LOOP"
-    };
+        "WHILE_LOOP",
+        "POTENTIAL_IF",
+        
+        };
 
-    class Statement {
+    class Statement
+    {
     public:
         string mName;
         Type mType{Type("void", VOID)};
