@@ -1,4 +1,5 @@
 #include "Parser.hpp"
+
 #include <iostream>
 
 namespace simpleparser {
@@ -18,7 +19,9 @@ namespace simpleparser {
             {"+", OperatorEntry{"+", 10}},
             {"-", OperatorEntry{"-", 10}},
             {"/", OperatorEntry{"/", 50}},
-            {"*", OperatorEntry{"*", 50}}
+            {"*", OperatorEntry{"*", 50}},
+            {"(", OperatorEntry{"(", 100}},
+            {")", OperatorEntry{")", 100}},
     };
 
     bool Parser::expectFunctionDefinition() {

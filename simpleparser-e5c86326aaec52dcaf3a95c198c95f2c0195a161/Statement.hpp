@@ -14,7 +14,8 @@ namespace simpleparser {
         LITERAL,
         OPERATOR_CALL,
         VARIABLE_NAME,
-        WHILE_LOOP
+        WHILE_LOOP,
+        FOR_LOOP,
     };
 
     static const char* sStatementKindStrings[] = {
