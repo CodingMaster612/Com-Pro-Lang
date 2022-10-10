@@ -88,6 +88,7 @@ namespace simpleparser {
                 case '-':
                 case '*':
                 case '<':
+                case '>':
                 case ';':
                 case ',':
                     if (currentToken.mType != STRING_LITERAL) {

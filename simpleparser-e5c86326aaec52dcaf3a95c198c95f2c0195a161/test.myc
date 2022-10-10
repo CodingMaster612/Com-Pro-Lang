@@ -6,4 +6,11 @@ void main(int argc, char argv) {
     auto name = "hello";
     let name = 42;
     string name = "hello this is a test project";
-}
+
+
+    while(1 > 0){
+
+
+        string name = "hello";
+    }
+;}

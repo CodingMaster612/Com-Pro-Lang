@@ -14,6 +14,7 @@ namespace simpleparser {
             // precedence 0 is reserved for "no operator".
             {"=", OperatorEntry{"=", 1}},
             {"<", OperatorEntry{"<", 5}},
+            {">", OperatorEntry{">", 5}},
             {"+", OperatorEntry{"+", 10}},
             {"-", OperatorEntry{"-", 10}},
             {"/", OperatorEntry{"/", 50}},
