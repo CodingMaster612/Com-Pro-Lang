@@ -1,28 +1,44 @@
+#include "Tokenizer.cpp"
 #include "Tokenizer.hpp"
+#include "Parser.cpp"
 #include "Parser.hpp"
+#include "FunctionDefinition.cpp"
+#include "FunctionDefinition.hpp"
+
+#include "Type.hpp"
+#include "Statement.cpp"
+#include "Statement.hpp"
 #include <iostream>
 
 using namespace std;
 using namespace simpleparser;
 
-int main() {
-    try {
-        std::cout << "simpleparser 0.1\n" << endl;
+int main()
+{
+    try
+    {
+        std::cout << "simpleparser 0.1\n"
+                  << endl;
 
-        FILE *fh = fopen("D:\\CLionProjects\\ParserAndCompiler\\simpleparser\\test.myc", "r");
-        if (!fh) { cerr << "Can't find file." << endl; }
+        FILE *fh = fopen("C:\\Users\\Tim\\Documents\\GitHub\\Com-Pro-Lang\\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\\test.myc", "r");
+        if (!fh)
+        {
+            cerr << "Can't find file." << endl;
+        }
         fseek(fh, 0, SEEK_END);
         size_t fileSize = ftell(fh);
         fseek(fh, 0, SEEK_SET);
         string fileContents(fileSize, ' ');
         fread(fileContents.data(), 1, fileSize, fh);
 
-        cout << fileContents << endl << endl;
+        cout << fileContents << endl
+             << endl;
 
         Tokenizer tokenizer;
         vector<Token> tokens = tokenizer.parse(fileContents);
 
-        for(Token currToken : tokens) {
+        for (Token currToken : tokens)
+        {
             currToken.debugPrint();
         }
 
@@ -30,10 +46,14 @@ int main() {
         parser.parse(tokens);
 
         parser.debugPrint();
-    } catch (exception& err) {
+    }
+    catch (exception &err)
+    {
         cerr << "Error: " << err.what() << endl;
         return 2;
-    } catch (...) {
+    }
+    catch (...)
+    {
         cerr << "Unknown Error." << endl;
         return 1;
     }

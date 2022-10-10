@@ -1,10 +1,17 @@
 #include <iostream>
 #include <cassert>
-#include "simpleparser/Tokenizer.hpp"
-#include "simpleparser/Parser.hpp"
-#include "bytecodeinterpreter/BytecodeInterpreter.hpp"
-#include "bytecodeinterpreter/Instruction.hpp"
-
+#include   "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\bytecodeinterpreter-f4d690fc82cfedfee94e169692bb4d1603dd8efc\BytecodeInterpreter.cpp"
+#include   "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\bytecodeinterpreter-f4d690fc82cfedfee94e169692bb4d1603dd8efc\BytecodeInterpreter.hpp"
+#include   "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\bytecodeinterpreter-f4d690fc82cfedfee94e169692bb4d1603dd8efc\Instruction.hpp"
+#include   "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\FunctionDefinition.cpp"
+#include   "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\FunctionDefinition.hpp"
+#include   "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Parser.cpp"
+#include   "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Parser.hpp"
+#include   "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Statement.cpp"
+#include   "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Statement.hpp"
+#include   "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Tokenizer.cpp"
+#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Tokenizer.hpp"
+#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Type.hpp"
 using namespace std;
 using namespace simpleparser;
 using namespace bytecodeinterpreter;
@@ -235,11 +242,7 @@ int main(int argc, const char* argv[]) {
     try {
         std::cout << "ParserAndCompiler 0.1\n" << endl;
 
-        if (argc < 2) {
-            throw runtime_error("First argument must be script file to run.");
-        }
-
-        FILE *fh = fopen(argv[1], "r");
+        FILE *fh = fopen("C:\\Users\\Tim\\Documents\\GitHub\\Com-Pro-Lang\\parserandcompiler-master (4)\\parserandcompiler-master\\parserandcompilertest.myc", "r");
         if (!fh) { cerr << "Can't find file." << endl; }
         fseek(fh, 0, SEEK_END);
         size_t fileSize = ftell(fh);
