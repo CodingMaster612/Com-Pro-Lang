@@ -8,9 +8,7 @@ void main(int argc, char argv) {
     string name = "hello this is a test project";
 
 
-    while(1 > 0){
+    
 
-
-        string name = "hello";
-    }
+    if
 ;}

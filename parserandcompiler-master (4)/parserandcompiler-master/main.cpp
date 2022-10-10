@@ -163,6 +163,8 @@ void GenerateCodeForStatement(const Statement & currStmt,
             compiledCode[conditionFalseJumpInstructionOffset].p2 = int16_t(compiledCode.size() - conditionFalseJumpInstructionOffset);
             break;
         }
+        // add for loop statement 
+        //case StatementKind::FOR_LOOP
     }
 }
 
