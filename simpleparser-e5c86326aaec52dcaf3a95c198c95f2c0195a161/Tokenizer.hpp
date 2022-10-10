@@ -18,6 +18,8 @@ namespace simpleparser {
         POTENTIAL_DOUBLE,
         POTENTIAL_COMMENT,
         COMMENT,
+        POTENTIAL_IF,
+        IF,
         
     };
 
@@ -32,6 +34,8 @@ namespace simpleparser {
         "POTENTIAL_DOUBLE",
         "POTENTIAL_COMMENT",
         "COMMENT",
+        "POTENTIAL_IF",
+        "IF",
 
         
     };

@@ -222,7 +222,9 @@ namespace simpleparser
         }
     }
 
-    optional<Statement> Parser::Conditional_statements(){
+    // optional<Statement> Parser::Conditional_statements(){
+        
+    //     //regex for if statements
         
         
         
@@ -232,11 +234,9 @@ namespace simpleparser
         
         
         
-        
-        
-        return;
+    //     return;
 
-    }
+    // }
 
     optional<Statement> Parser::expectOneValue()
     {
