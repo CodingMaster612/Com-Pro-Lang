@@ -2,6 +2,7 @@
 #include <vector>
 #include "Instruction.hpp"
 #include "BytecodeInterpreter.hpp"
+#include "BytecodeInterpreter.cpp"
 
 using namespace std;
 using namespace bytecodeinterpreter;

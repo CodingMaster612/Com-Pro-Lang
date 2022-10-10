@@ -1,3 +1,3 @@
 TO-DO LIST
 
-- Implement local function calls.
+- Implement if statements so it registers in the compiler

@@ -14,7 +14,11 @@ namespace simpleparser {
         INT32,
         UINT32,
         DOUBLE,
-        STRUCT
+        STRUCT,
+        BOOL,
+        AUTO,
+        LET,
+        STRING,
     };
 
     class Type {

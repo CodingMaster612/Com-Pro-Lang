@@ -118,6 +118,10 @@ namespace simpleparser {
         mTypes["char"] = Type("signed char", INT8);
         mTypes["uint8_t"] = Type("uint8_t", INT8);
         mTypes["double"] = Type("double", DOUBLE);
+        mTypes["bool"] = Type("bool", BOOL);
+        mTypes["auto"] = Type("auto", AUTO);
+        mTypes["let"] = Type("let", LET);
+        mTypes["string"] = Type("string", STRING);
     }
 
     optional<Type> Parser::expectType() {
