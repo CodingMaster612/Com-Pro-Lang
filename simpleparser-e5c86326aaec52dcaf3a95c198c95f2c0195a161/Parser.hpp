@@ -9,11 +9,13 @@
 #include <map>
 #include <vector>
 
-namespace simpleparser {
+namespace simpleparser
+{
 
     using namespace std;
 
-    class Parser {
+    class Parser
+    {
     public:
         Parser();
 
@@ -27,10 +29,10 @@ namespace simpleparser {
         optional<Type> expectType();
 
         //! Empty string means match any identifier.
-        optional<Token> expectIdentifier(const string& name = string());
+        optional<Token> expectIdentifier(const string &name = string());
 
         //! Empty string means match any operator.
-        optional<Token> expectOperator(const string& name = string());
+        optional<Token> expectOperator(const string &name = string());
 
         bool expectFunctionDefinition();
 
@@ -45,19 +47,17 @@ namespace simpleparser {
 
         optional<Statement> expectWhileLoop();
 
-        // optional<Statement> expectStatement2();
-
-         optional<Statement> expectStatement();
+        optional<Statement> expectForLoop();
+        
+        optional<Statement> expectStatement();
 
         optional<Statement> expectVariableDeclaration();
 
         optional<Statement> expectFunctionCall();
 
-        optional <Statement> expectExpression();
+        optional<Statement> expectExpression();
 
-        optional<Statement>Conditional_statements();
-
-        
+        optional<Statement> Conditional_statements();
 
         size_t operatorPrecedence(const string &operatorName);
 

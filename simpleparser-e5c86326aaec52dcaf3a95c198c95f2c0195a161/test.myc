@@ -7,12 +7,7 @@ void main(int argc, char argv) {
     let name = 42;
     string name = "hello this is a test project";
 
-    while(1 < 0)
-{
-
-    
-}    
-
+   
 
    
 ;}
@@ -21,7 +16,20 @@ void main(int argc, char argv) {
     
 
 
+void main_test(){
+
+
+   while(1 < 0){
+
+   }
 ;}
 
+void main_tests(){
 
-}
+    for(1 < 6){
+
+        
+    }
+
+    
+;}

@@ -18,6 +18,7 @@ namespace simpleparser
         VARIABLE_NAME,
         WHILE_LOOP,
         POTENTIAL_IF,
+        FOR_LOOP,
         
 
     };
@@ -30,6 +31,7 @@ namespace simpleparser
         "VARIABLE_NAME",
         "WHILE_LOOP",
         "POTENTIAL_IF",
+        "FOR_LOOP",
         
         };
 

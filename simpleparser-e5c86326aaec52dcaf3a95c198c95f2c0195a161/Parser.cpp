@@ -167,7 +167,6 @@ namespace simpleparser
         mTypes["auto"] = Type("auto", AUTO);
         mTypes["let"] = Type("let", LET);
         mTypes["string"] = Type("string", STRING);
-        
     }
 
     optional<Type> Parser::expectType()
@@ -223,7 +222,6 @@ namespace simpleparser
         }
     }
 
-    
     optional<Statement> Parser::expectOneValue()
     {
         optional<Statement> result;
@@ -256,7 +254,7 @@ namespace simpleparser
             result = stringLiteralStatement;
             ++mCurrentToken;
         }
-        
+
         else if (expectOperator("(").has_value())
         {
             result = expectExpression();
@@ -425,19 +423,96 @@ namespace simpleparser
 
         return whileLoop;
     }
+    optional<Statement> Parser::expectForLoop()
+    {
+        Statement ForLoop{"", Type{"void", VOID}, {}, StatementKind::FOR_LOOP};
+
+        size_t lineNo = (mCurrentToken != mEndToken) ? mCurrentToken->mLineNumber : SIZE_MAX;
+        if (!expectIdentifier("for"))
+        {
+            return nullopt;
+        }
+
+        if (!expectOperator("("))
+        {
+            throw runtime_error(string("Expected opening parenthesis after \"for\" on line ") + to_string(lineNo) + ".");
+        }
+
+        if (mCurrentToken != mEndToken)
+        {
+            lineNo = mCurrentToken->mLineNumber;
+        }
+        optional<Statement> condition = expectExpression();
+        if (!condition)
+        {
+            throw runtime_error(string("Expected loop condition after \"for\" statement on line ") + to_string(lineNo) + ".");
+        }
+
+        ForLoop.mParameters.push_back(condition.value());
+
+        if (!expectOperator(")"))
+        {
+            throw runtime_error(string("Expected closing parenthesis after \"for\" condition on line ") + to_string(lineNo) + ".");
+        }
+
+        if (!expectOperator("{"))
+        {
+            throw runtime_error(string("Expected opening curly bracket after \"for\" condition on line ") + to_string(lineNo) + ".");
+        }
+
+        while (mCurrentToken != mEndToken && !expectOperator("}"))
+        {
+            auto currentStatement = expectStatement();
+            if (!currentStatement)
+            {
+                break;
+            }
+            ForLoop.mParameters.push_back(currentStatement.value());
+
+            if (!expectOperator(";").has_value())
+            {
+                size_t lineNo = (mCurrentToken != mEndToken) ? mCurrentToken->mLineNumber : 999999;
+                throw runtime_error(string("Expected ';' at end of statement in line ") + to_string(lineNo) + ".");
+            }
+        }
+
+        return ForLoop;
+    }
 
     optional<Statement> Parser::expectStatement()
     {
         optional<Statement> result = expectWhileLoop();
+        optional<Statement> result2 = expectForLoop();
         if (!result.has_value())
         {
             result = expectVariableDeclaration();
+
+           
         }
         if (!result.has_value())
         {
             result = expectExpression();
+
+            
         }
         return result;
+        
+        //optional<Statement> result2 = expectForLoop();
+
+        if (!result2.has_value())
+        {
+            result2 = expectVariableDeclaration();
+
+            //return result2;
+        }
+        if (!result2.has_value())
+        {
+            result2 = expectExpression();
+
+            //return result2;
+        }
+
+        return result2;
     }
 
     optional<Statement> Parser::expectExpression()
