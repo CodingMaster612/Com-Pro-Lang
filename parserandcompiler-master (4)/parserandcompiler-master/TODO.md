@@ -10,3 +10,4 @@ TO-DO LIST
 
 LOG:: //implemented greater than ">" operator in parser.cpp line 18
 
+use regex without char and string

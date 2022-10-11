@@ -1,5 +1,5 @@
 #include "Tokenizer.hpp"
-#include "enum.hpp"
+
 #include <stdexcept>
 #include <iostream>
 #include <regex>
@@ -198,15 +198,15 @@ namespace simpleparser
                 }
                 break;
 
-                
-                if (currentToken.mType == POTENTIAL_IF)
-                {
-                    endToken(currentToken, tokens);
-                    currentToken.mType = IF;
-                    currentToken.mText.append(1, currCh);
-                    endToken(currentToken, tokens);
-                }
-                break;
+            // case :
+            //     if (currentToken.mType == POTENTIAL_IF)
+            //     {
+            //         endToken(currentToken, tokens);
+            //         currentToken.mType = IF;
+            //         currentToken.mText.append(1, currCh);
+            //         endToken(currentToken, tokens);
+            //     }
+            //     break;
 
             default:
                 if (currentToken.mType == WHITESPACE || currentToken.mType == INTEGER_LITERAL || currentToken.mType == DOUBLE_LITERAL)
