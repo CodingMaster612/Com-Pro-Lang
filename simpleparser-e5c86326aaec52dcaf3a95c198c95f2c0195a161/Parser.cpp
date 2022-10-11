@@ -167,6 +167,7 @@ namespace simpleparser
         mTypes["auto"] = Type("auto", AUTO);
         mTypes["let"] = Type("let", LET);
         mTypes["string"] = Type("string", STRING);
+        
     }
 
     optional<Type> Parser::expectType()
@@ -222,22 +223,7 @@ namespace simpleparser
         }
     }
 
-    // optional<Statement> Parser::Conditional_statements(){
-        
-    //     //regex for if statements
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    //     return;
-
-    // }
-
+    
     optional<Statement> Parser::expectOneValue()
     {
         optional<Statement> result;
@@ -270,6 +256,7 @@ namespace simpleparser
             result = stringLiteralStatement;
             ++mCurrentToken;
         }
+        
         else if (expectOperator("(").has_value())
         {
             result = expectExpression();

@@ -45,7 +45,9 @@ namespace simpleparser {
 
         optional<Statement> expectWhileLoop();
 
-        optional<Statement> expectStatement();
+        // optional<Statement> expectStatement2();
+
+         optional<Statement> expectStatement();
 
         optional<Statement> expectVariableDeclaration();
 
@@ -54,6 +56,8 @@ namespace simpleparser {
         optional <Statement> expectExpression();
 
         optional<Statement>Conditional_statements();
+
+        
 
         size_t operatorPrecedence(const string &operatorName);
 

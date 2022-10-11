@@ -7,8 +7,21 @@ void main(int argc, char argv) {
     let name = 42;
     string name = "hello this is a test project";
 
+    while(1 < 0)
+{
 
     
-   %
+}    
+
+
    
 ;}
+
+
+    
+
+
+;}
+
+
+}

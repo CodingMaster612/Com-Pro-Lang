@@ -19,6 +19,7 @@ namespace simpleparser {
         AUTO,
         LET,
         STRING,
+        
     };
 
     class Type {

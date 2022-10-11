@@ -19,7 +19,7 @@ namespace simpleparser {
         POTENTIAL_COMMENT,
         COMMENT,
         POTENTIAL_IF,
-        IF,
+        
         
     };
 
