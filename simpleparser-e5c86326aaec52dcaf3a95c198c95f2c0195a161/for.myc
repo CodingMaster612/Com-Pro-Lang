@@ -1,0 +1,19 @@
+int main_test(){
+
+
+    for(1 < 0){
+        
+    }
+
+
+    
+;}
+void main(){
+
+    while(1 < 0){
+
+
+
+    }
+;}
+

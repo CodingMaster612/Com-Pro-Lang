@@ -486,115 +486,111 @@ namespace simpleparser
         if (!result.has_value())
         {
             result = expectVariableDeclaration();
-
-           
         }
         if (!result.has_value())
         {
             result = expectExpression();
-
-            
         }
-        return result;
-        
-        //optional<Statement> result2 = expectForLoop();
+        else
+        {
+            return result;
+        }
+
+        // optional<Statement> result2 = expectForLoop();
 
         if (!result2.has_value())
         {
             result2 = expectVariableDeclaration();
-
-            //return result2;
         }
         if (!result2.has_value())
         {
             result2 = expectExpression();
-
-            //return result2;
         }
-
-        return result2;
+        else
+        {
+            return result2;
+        }
     }
 
-    optional<Statement> Parser::expectExpression()
-    {
-        optional<Statement> lhs = expectOneValue();
-        if (!lhs.has_value())
+        optional<Statement> Parser::expectExpression()
         {
-            return nullopt;
-        }
-
-        while (true)
-        {
-            optional<Token> op = expectOperator();
-            if (!op.has_value())
+            optional<Statement> lhs = expectOneValue();
+            if (!lhs.has_value())
             {
-                break;
-            }
-            int rhsPrecedence = operatorPrecedence(op->mText);
-            if (rhsPrecedence == 0)
-            {
-                --mCurrentToken;
-                return lhs;
-            }
-            optional<Statement> rhs = expectOneValue();
-            if (!rhs.has_value())
-            {
-                --mCurrentToken;
-                return lhs;
+                return nullopt;
             }
 
-            Statement *rightmostStatement = findRightmostStatement(&lhs.value(), rhsPrecedence);
-            if (rightmostStatement)
+            while (true)
             {
-                Statement operatorCall;
-                operatorCall.mKind = StatementKind::OPERATOR_CALL;
-                operatorCall.mName = op->mText;
-                operatorCall.mParameters.push_back(rightmostStatement->mParameters.at(1));
-                operatorCall.mParameters.push_back(rhs.value());
-                rightmostStatement->mParameters[1] = operatorCall;
+                optional<Token> op = expectOperator();
+                if (!op.has_value())
+                {
+                    break;
+                }
+                int rhsPrecedence = operatorPrecedence(op->mText);
+                if (rhsPrecedence == 0)
+                {
+                    --mCurrentToken;
+                    return lhs;
+                }
+                optional<Statement> rhs = expectOneValue();
+                if (!rhs.has_value())
+                {
+                    --mCurrentToken;
+                    return lhs;
+                }
+
+                Statement *rightmostStatement = findRightmostStatement(&lhs.value(), rhsPrecedence);
+                if (rightmostStatement)
+                {
+                    Statement operatorCall;
+                    operatorCall.mKind = StatementKind::OPERATOR_CALL;
+                    operatorCall.mName = op->mText;
+                    operatorCall.mParameters.push_back(rightmostStatement->mParameters.at(1));
+                    operatorCall.mParameters.push_back(rhs.value());
+                    rightmostStatement->mParameters[1] = operatorCall;
+                }
+                else
+                {
+                    Statement operatorCall;
+                    operatorCall.mKind = StatementKind::OPERATOR_CALL;
+                    operatorCall.mName = op->mText;
+                    operatorCall.mParameters.push_back(lhs.value());
+                    operatorCall.mParameters.push_back(rhs.value());
+                    lhs = operatorCall;
+                }
             }
-            else
-            {
-                Statement operatorCall;
-                operatorCall.mKind = StatementKind::OPERATOR_CALL;
-                operatorCall.mName = op->mText;
-                operatorCall.mParameters.push_back(lhs.value());
-                operatorCall.mParameters.push_back(rhs.value());
-                lhs = operatorCall;
-            }
-        }
 
-        return lhs;
-    }
-
-    Statement *Parser::findRightmostStatement(Statement *lhs, size_t rhsPrecedence)
-    {
-        if (lhs->mKind != StatementKind::OPERATOR_CALL)
-        {
-            return nullptr;
-        }
-        if (operatorPrecedence(lhs->mName) >= rhsPrecedence)
-        {
-            return nullptr;
-        }
-
-        Statement *rhs = &lhs->mParameters.at(1);
-        rhs = findRightmostStatement(rhs, rhsPrecedence);
-        if (rhs == nullptr)
-        {
             return lhs;
         }
-        return rhs;
-    }
 
-    size_t Parser::operatorPrecedence(const string &operatorName)
-    {
-        map<string, OperatorEntry>::iterator foundOperator = sOperators.find(operatorName);
-        if (foundOperator == sOperators.end())
+        Statement *Parser::findRightmostStatement(Statement * lhs, size_t rhsPrecedence)
         {
-            return 0;
-        }
-        return foundOperator->second.mPrecedence;
-    }
+            if (lhs->mKind != StatementKind::OPERATOR_CALL)
+            {
+                return nullptr;
+            }
+            if (operatorPrecedence(lhs->mName) >= rhsPrecedence)
+            {
+                return nullptr;
+            }
 
-}
+            Statement *rhs = &lhs->mParameters.at(1);
+            rhs = findRightmostStatement(rhs, rhsPrecedence);
+            if (rhs == nullptr)
+            {
+                return lhs;
+            }
+            return rhs;
+        }
+
+        size_t Parser::operatorPrecedence(const string &operatorName)
+        {
+            map<string, OperatorEntry>::iterator foundOperator = sOperators.find(operatorName);
+            if (foundOperator == sOperators.end())
+            {
+                return 0;
+            }
+            return foundOperator->second.mPrecedence;
+        }
+    }

@@ -11,3 +11,7 @@ TO-DO LIST
 LOG:: //implemented greater than ">" operator in parser.cpp line 18
 
 use regex without char and string
+
+
+could be tokenizer
+could be smea functions 
