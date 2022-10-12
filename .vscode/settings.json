@@ -4,6 +4,7 @@
         "optional": "cpp",
         "vector": "cpp",
         "stdexcept": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "utility": "cpp"
     }
 }
