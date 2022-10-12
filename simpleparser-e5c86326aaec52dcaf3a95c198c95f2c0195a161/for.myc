@@ -1,8 +1,9 @@
 int main_test(){
-
+    
+    
 
     for(1 < 0){
-        
+        let name = 32;
     }
 
 

@@ -477,12 +477,17 @@ namespace simpleparser
         }
 
         return ForLoop;
+
+
     }
+
+    
 
     optional<Statement> Parser::expectStatement()
     {
         optional<Statement> result = expectWhileLoop();
         optional<Statement> result2 = expectForLoop();
+        
         if (!result.has_value())
         {
             result = expectVariableDeclaration();
@@ -491,11 +496,11 @@ namespace simpleparser
         {
             result = expectExpression();
         }
-        else
-        {
+        else{
             return result;
         }
-
+        
+        
         // optional<Statement> result2 = expectForLoop();
 
         if (!result2.has_value())
@@ -510,6 +515,7 @@ namespace simpleparser
         {
             return result2;
         }
+        return result;
     }
 
         optional<Statement> Parser::expectExpression()
