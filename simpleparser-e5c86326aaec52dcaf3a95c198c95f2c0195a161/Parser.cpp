@@ -1,4 +1,7 @@
 #include "Parser.hpp"
+#include "regex.hpp"
+#include <map>
+#include <regex>
 
 #include <iostream>
 
@@ -368,6 +371,43 @@ namespace simpleparser
         return functionCall;
     }
 
+    // optional<Statement> Parser::Loop()
+    // {
+    //     vector<Token>::iterator startToken = mCurrentToken;
+    //     optional<Type> possibleType = expectType();
+    //     if (!possibleType.has_value())
+    //     {
+    //         mCurrentToken = startToken;
+    //         return nullopt;
+    //     }
+
+    //     optional<Token> possibleVariableName = expectIdentifier();
+    //     if (!possibleType.has_value())
+    //     {
+    //         mCurrentToken = startToken;
+    //         return nullopt;
+    //     }
+
+    //     Statement call;
+
+    //     call.mKind = StatementKind::VARIABLE_NAME;
+    //     call.mName = possibleVariableName->mText;
+    //     call.mType = possibleType.value();
+
+    //     if (expectIdentifier("i").has_value())
+    //     {
+    //         optional<Statement> initialValue = expectExpression();
+    //         if (!initialValue.has_value())
+    //         {
+    //             throw runtime_error("Expected i value to right of 'int' in variable declaration.");
+    //         }
+
+    //         call.mParameters.push_back(initialValue.value());
+    //     }
+
+    //     return call ;
+    // }
+
     optional<Statement> Parser::expectWhileLoop()
     {
         Statement whileLoop{"", Type{"void", VOID}, {}, StatementKind::WHILE_LOOP};
@@ -477,17 +517,13 @@ namespace simpleparser
         }
 
         return ForLoop;
-
-
     }
-
-    
 
     optional<Statement> Parser::expectStatement()
     {
         optional<Statement> result = expectWhileLoop();
         optional<Statement> result2 = expectForLoop();
-        
+
         if (!result.has_value())
         {
             result = expectVariableDeclaration();
@@ -496,11 +532,11 @@ namespace simpleparser
         {
             result = expectExpression();
         }
-        else{
+        else
+        {
             return result;
         }
-        
-        
+
         // optional<Statement> result2 = expectForLoop();
 
         if (!result2.has_value())
@@ -518,85 +554,85 @@ namespace simpleparser
         return result;
     }
 
-        optional<Statement> Parser::expectExpression()
+    optional<Statement> Parser::expectExpression()
+    {
+        optional<Statement> lhs = expectOneValue();
+        if (!lhs.has_value())
         {
-            optional<Statement> lhs = expectOneValue();
-            if (!lhs.has_value())
-            {
-                return nullopt;
-            }
-
-            while (true)
-            {
-                optional<Token> op = expectOperator();
-                if (!op.has_value())
-                {
-                    break;
-                }
-                int rhsPrecedence = operatorPrecedence(op->mText);
-                if (rhsPrecedence == 0)
-                {
-                    --mCurrentToken;
-                    return lhs;
-                }
-                optional<Statement> rhs = expectOneValue();
-                if (!rhs.has_value())
-                {
-                    --mCurrentToken;
-                    return lhs;
-                }
-
-                Statement *rightmostStatement = findRightmostStatement(&lhs.value(), rhsPrecedence);
-                if (rightmostStatement)
-                {
-                    Statement operatorCall;
-                    operatorCall.mKind = StatementKind::OPERATOR_CALL;
-                    operatorCall.mName = op->mText;
-                    operatorCall.mParameters.push_back(rightmostStatement->mParameters.at(1));
-                    operatorCall.mParameters.push_back(rhs.value());
-                    rightmostStatement->mParameters[1] = operatorCall;
-                }
-                else
-                {
-                    Statement operatorCall;
-                    operatorCall.mKind = StatementKind::OPERATOR_CALL;
-                    operatorCall.mName = op->mText;
-                    operatorCall.mParameters.push_back(lhs.value());
-                    operatorCall.mParameters.push_back(rhs.value());
-                    lhs = operatorCall;
-                }
-            }
-
-            return lhs;
+            return nullopt;
         }
 
-        Statement *Parser::findRightmostStatement(Statement * lhs, size_t rhsPrecedence)
+        while (true)
         {
-            if (lhs->mKind != StatementKind::OPERATOR_CALL)
+            optional<Token> op = expectOperator();
+            if (!op.has_value())
             {
-                return nullptr;
+                break;
             }
-            if (operatorPrecedence(lhs->mName) >= rhsPrecedence)
+            int rhsPrecedence = operatorPrecedence(op->mText);
+            if (rhsPrecedence == 0)
             {
-                return nullptr;
-            }
-
-            Statement *rhs = &lhs->mParameters.at(1);
-            rhs = findRightmostStatement(rhs, rhsPrecedence);
-            if (rhs == nullptr)
-            {
+                --mCurrentToken;
                 return lhs;
             }
-            return rhs;
+            optional<Statement> rhs = expectOneValue();
+            if (!rhs.has_value())
+            {
+                --mCurrentToken;
+                return lhs;
+            }
+
+            Statement *rightmostStatement = findRightmostStatement(&lhs.value(), rhsPrecedence);
+            if (rightmostStatement)
+            {
+                Statement operatorCall;
+                operatorCall.mKind = StatementKind::OPERATOR_CALL;
+                operatorCall.mName = op->mText;
+                operatorCall.mParameters.push_back(rightmostStatement->mParameters.at(1));
+                operatorCall.mParameters.push_back(rhs.value());
+                rightmostStatement->mParameters[1] = operatorCall;
+            }
+            else
+            {
+                Statement operatorCall;
+                operatorCall.mKind = StatementKind::OPERATOR_CALL;
+                operatorCall.mName = op->mText;
+                operatorCall.mParameters.push_back(lhs.value());
+                operatorCall.mParameters.push_back(rhs.value());
+                lhs = operatorCall;
+            }
         }
 
-        size_t Parser::operatorPrecedence(const string &operatorName)
-        {
-            map<string, OperatorEntry>::iterator foundOperator = sOperators.find(operatorName);
-            if (foundOperator == sOperators.end())
-            {
-                return 0;
-            }
-            return foundOperator->second.mPrecedence;
-        }
+        return lhs;
     }
+
+    Statement *Parser::findRightmostStatement(Statement *lhs, size_t rhsPrecedence)
+    {
+        if (lhs->mKind != StatementKind::OPERATOR_CALL)
+        {
+            return nullptr;
+        }
+        if (operatorPrecedence(lhs->mName) >= rhsPrecedence)
+        {
+            return nullptr;
+        }
+
+        Statement *rhs = &lhs->mParameters.at(1);
+        rhs = findRightmostStatement(rhs, rhsPrecedence);
+        if (rhs == nullptr)
+        {
+            return lhs;
+        }
+        return rhs;
+    }
+
+    size_t Parser::operatorPrecedence(const string &operatorName)
+    {
+        map<string, OperatorEntry>::iterator foundOperator = sOperators.find(operatorName);
+        if (foundOperator == sOperators.end())
+        {
+            return 0;
+        }
+        return foundOperator->second.mPrecedence;
+    }
+}

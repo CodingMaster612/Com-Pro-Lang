@@ -21,7 +21,7 @@ int main()
         std::cout << "simpleparser 0.1\n"
                   << endl;
 
-        FILE *fh = fopen("C:\\Users\\Tim\\Documents\\GitHub\\Com-Pro-Lang\\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\\for.myc", "r");
+        FILE *fh = fopen("C:\\Users\\Tim\\Documents\\GitHub\\Com-Pro-Lang\\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\\test.myc", "r");
         if (!fh)
         {
             cerr << "Can't find file." << endl;

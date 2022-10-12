@@ -19,6 +19,7 @@ namespace simpleparser {
         POTENTIAL_COMMENT,
         COMMENT,
         POTENTIAL_IF,
+        VARIABLE,
         
         
     };
@@ -36,6 +37,7 @@ namespace simpleparser {
         "COMMENT",
         "POTENTIAL_IF",
         "IF",
+        "VARIABLE",
 
         
     };

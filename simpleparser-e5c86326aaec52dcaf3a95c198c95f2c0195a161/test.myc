@@ -22,14 +22,12 @@ void main_test(){
    while(1 < 0){
 
    }
+
+   
 ;}
-
 void main_tests(){
-
-    for(1 < 6){
-
-        
-    }
-
+for(1 < 0){
     
+   }
+
 ;}
