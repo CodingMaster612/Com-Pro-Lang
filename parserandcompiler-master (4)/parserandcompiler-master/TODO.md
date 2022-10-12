@@ -8,3 +8,5 @@ TO-DO LIST
 - add a new expectExpression with the syntax in it
 
 - use regex
+
+- change reult to better vraiables

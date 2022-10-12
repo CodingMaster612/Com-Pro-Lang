@@ -19,6 +19,8 @@ namespace simpleparser
         WHILE_LOOP,
         POTENTIAL_IF,
         FOR_LOOP,
+        POTENTIAL_ELSE,
+        POTENTIAL_ELSE_IF,
         
 
     };
@@ -32,6 +34,8 @@ namespace simpleparser
         "WHILE_LOOP",
         "POTENTIAL_IF",
         "FOR_LOOP",
+        "POTENTIAL_ELSE",
+        "POTENTIAL_ELSE_IF",
         
         };
 

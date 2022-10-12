@@ -31,3 +31,35 @@ for(1 < 0){
    }
 
 ;}
+
+
+void main_if(){
+
+
+
+
+    if(2 < 0){
+
+
+    }
+;}
+
+
+int main(){
+
+    else{
+        string name = "this is a test for the else";
+    }
+;}
+
+int main_elif(){
+
+
+
+
+
+    elif(1 < 0){
+
+
+    }
+;}

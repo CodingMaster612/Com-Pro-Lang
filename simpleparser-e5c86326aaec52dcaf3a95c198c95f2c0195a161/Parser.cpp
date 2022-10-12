@@ -519,39 +519,248 @@ namespace simpleparser
         return ForLoop;
     }
 
+    optional<Statement> Parser::expectIf()
+    {
+        Statement IfState{"", Type{"void", VOID}, {}, StatementKind::POTENTIAL_IF};
+
+        size_t lineNo = (mCurrentToken != mEndToken) ? mCurrentToken->mLineNumber : SIZE_MAX;
+        if (!expectIdentifier("if"))
+        {
+            return nullopt;
+        }
+
+        if (!expectOperator("("))
+        {
+            throw runtime_error(string("Expected opening parenthesis after \"if\" on line ") + to_string(lineNo) + ".");
+        }
+
+        if (mCurrentToken != mEndToken)
+        {
+            lineNo = mCurrentToken->mLineNumber;
+        }
+        optional<Statement> condition = expectExpression();
+        if (!condition)
+        {
+            throw runtime_error(string("Expected loop condition after \"if\" statement on line ") + to_string(lineNo) + ".");
+        }
+
+        IfState.mParameters.push_back(condition.value());
+
+        if (!expectOperator(")"))
+        {
+            throw runtime_error(string("Expected closing parenthesis after \"if\" condition on line ") + to_string(lineNo) + ".");
+        }
+
+        if (!expectOperator("{"))
+        {
+            throw runtime_error(string("Expected opening curly bracket after \"if\" condition on line ") + to_string(lineNo) + ".");
+        }
+
+        while (mCurrentToken != mEndToken && !expectOperator("}"))
+        {
+            auto currentStatement = expectStatement();
+            if (!currentStatement)
+            {
+                break;
+            }
+            IfState.mParameters.push_back(currentStatement.value());
+
+            if (!expectOperator(";").has_value())
+            {
+                size_t lineNo = (mCurrentToken != mEndToken) ? mCurrentToken->mLineNumber : 999999;
+                throw runtime_error(string("Expected ';' at end of statement in line ") + to_string(lineNo) + ".");
+            }
+        }
+
+        return IfState;
+    }
+    optional<Statement> Parser::expectElseIf()
+    {
+        Statement Else_if_State{"", Type{"void", VOID}, {}, StatementKind::POTENTIAL_ELSE_IF};
+
+        size_t lineNo = (mCurrentToken != mEndToken) ? mCurrentToken->mLineNumber : SIZE_MAX;
+        if (!expectIdentifier("elif"))
+        {
+            return nullopt;
+        }
+
+        if (!expectOperator("("))
+        {
+            throw runtime_error(string("Expected opening parenthesis after \"elif\" on line ") + to_string(lineNo) + ".");
+        }
+
+        if (mCurrentToken != mEndToken)
+        {
+            lineNo = mCurrentToken->mLineNumber;
+        }
+        optional<Statement> condition = expectExpression();
+        if (!condition)
+        {
+            throw runtime_error(string("Expected loop condition after \"elif\" statement on line ") + to_string(lineNo) + ".");
+        }
+
+        Else_if_State.mParameters.push_back(condition.value());
+
+        if (!expectOperator(")"))
+        {
+            throw runtime_error(string("Expected closing parenthesis after \"elif\" condition on line ") + to_string(lineNo) + ".");
+        }
+
+        if (!expectOperator("{"))
+        {
+            throw runtime_error(string("Expected opening curly bracket after \"elif\" condition on line ") + to_string(lineNo) + ".");
+        }
+
+        while (mCurrentToken != mEndToken && !expectOperator("}"))
+        {
+            auto currentStatement = expectStatement();
+            if (!currentStatement)
+            {
+                break;
+            }
+            Else_if_State.mParameters.push_back(currentStatement.value());
+
+            if (!expectOperator(";").has_value())
+            {
+                size_t lineNo = (mCurrentToken != mEndToken) ? mCurrentToken->mLineNumber : 999999;
+                throw runtime_error(string("Expected ';' at end of statement in line ") + to_string(lineNo) + ".");
+            }
+        }
+
+        return Else_if_State;
+    }
+
+    optional<Statement> Parser::expectElse()
+    {
+        Statement ElseState{"", Type{"void", VOID}, {}, StatementKind::POTENTIAL_ELSE};
+
+        size_t lineNo = (mCurrentToken != mEndToken) ? mCurrentToken->mLineNumber : SIZE_MAX;
+        if (!expectIdentifier("else"))
+        {
+            return nullopt;
+        }
+
+        // if (!expectOperator("("))
+        // {
+        //     throw runtime_error(string("Expected opening parenthesis after \"else\" on line ") + to_string(lineNo) + ".");
+        // }
+
+        if (mCurrentToken != mEndToken)
+        {
+            lineNo = mCurrentToken->mLineNumber;
+        }
+        // optional<Statement> condition = expectExpression();
+        // if (!condition)
+        // {
+        //     throw runtime_error(string("Expected loop condition after \"else\" statement on line ") + to_string(lineNo) + ".");
+        // }
+
+        // Else_Result.mParameters.push_back(condition.value());
+
+        // if (!expectOperator(")"))
+        // {
+        //     throw runtime_error(string("Expected closing parenthesis after \"else\" condition on line ") + to_string(lineNo) + ".");
+        // }
+
+        if (!expectOperator("{"))
+        {
+            throw runtime_error(string("Expected opening curly bracket after \"else\" condition on line ") + to_string(lineNo) + ".");
+        }
+
+        while (mCurrentToken != mEndToken && !expectOperator("}"))
+        {
+            auto currentStatement = expectStatement();
+            if (!currentStatement)
+            {
+                break;
+            }
+            ElseState.mParameters.push_back(currentStatement.value());
+
+            if (!expectOperator(";").has_value())
+            {
+                size_t lineNo = (mCurrentToken != mEndToken) ? mCurrentToken->mLineNumber : 999999;
+                throw runtime_error(string("Expected ';' at end of statement in line ") + to_string(lineNo) + ".");
+            }
+        }
+
+        return ElseState;
+    }
+
     optional<Statement> Parser::expectStatement()
     {
-        optional<Statement> result = expectWhileLoop();
-        optional<Statement> result2 = expectForLoop();
+        optional<Statement> WhileLoops = expectWhileLoop();
+        optional<Statement> ForLoops = expectForLoop();
+        optional<Statement> If_Result = expectIf();
+        optional<Statement> Else_Result = expectElse();
+        optional<Statement> ElseIf_Result = expectElseIf();
 
-        if (!result.has_value())
+        if (!WhileLoops.has_value())
         {
-            result = expectVariableDeclaration();
+            WhileLoops = expectVariableDeclaration();
         }
-        if (!result.has_value())
+        if (!WhileLoops.has_value())
         {
-            result = expectExpression();
+            WhileLoops = expectExpression();
         }
         else
         {
-            return result;
+            return WhileLoops;
         }
-
-        // optional<Statement> result2 = expectForLoop();
-
-        if (!result2.has_value())
+        if (!ForLoops.has_value())
         {
-            result2 = expectVariableDeclaration();
+            ForLoops = expectVariableDeclaration();
         }
-        if (!result2.has_value())
+        if (!ForLoops.has_value())
         {
-            result2 = expectExpression();
+            ForLoops = expectExpression();
         }
         else
         {
-            return result2;
+            return ForLoops;
         }
-        return result;
+
+        if (!If_Result.has_value())
+        {
+            If_Result = expectVariableDeclaration();
+        }
+        if (!If_Result.has_value())
+        {
+            If_Result = expectExpression();
+        }
+        else
+        {
+            return If_Result;
+        }
+
+        // optional<Statement> ForLoops = expectForLoop();
+
+        if (!Else_Result.has_value())
+        {
+            Else_Result = expectVariableDeclaration();
+        }
+        if (!Else_Result.has_value())
+        {
+            Else_Result = expectExpression();
+        }
+        else
+        {
+
+            return Else_Result;
+        }
+
+        if (!ElseIf_Result.has_value())
+        {
+            ElseIf_Result = expectVariableDeclaration();
+        }
+        if (!ElseIf_Result.has_value())
+        {
+            ElseIf_Result = expectExpression();
+        }
+        else
+        {
+            return ElseIf_Result;
+        }
+        return WhileLoops;
     }
 
     optional<Statement> Parser::expectExpression()
