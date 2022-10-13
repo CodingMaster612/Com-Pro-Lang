@@ -22,3 +22,6 @@ write down all boolean values and register them somewhere in the code
 change the byte code instructions to support boolean values
 
 if statement is already registered with the parser
+- focus on the GenerateCodeForFunction and apply boolean
+
+-make suyre boolean knows its boolean 

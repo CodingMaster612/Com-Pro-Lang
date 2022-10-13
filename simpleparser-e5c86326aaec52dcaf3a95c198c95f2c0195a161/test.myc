@@ -63,3 +63,10 @@ int main_elif(){
 
     }
 ;}
+
+
+void main_test_subject(){
+
+
+    bool name = true;
+}

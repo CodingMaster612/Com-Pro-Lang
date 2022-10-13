@@ -216,8 +216,9 @@ void GenerateCodeForStatement(const Statement &currStmt,
     case StatementKind::POTENTIAL_IF:
     {
         
+        
 
-        break;
+        
         }
     }
     // if true bool print out string or number
@@ -248,7 +249,7 @@ void GenerateCodeForFunction(const FunctionDefinition &currFunc, vector<Instruct
     {
         switch (currStmt.mKind)
         {
-        case StatementKind::VARIABLE_DECLARATION:
+        case StatementKind::VARIABLE_DECLARATION: //add teh rest of the varia
             switch (currStmt.mType.mType)
             {
             case VOID:

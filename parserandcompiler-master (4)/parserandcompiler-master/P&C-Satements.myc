@@ -1,6 +1,7 @@
 int main(){
 
     if(1 < 0){
-        printNum(1 + 1);
+       
     }
+    
 ;}
