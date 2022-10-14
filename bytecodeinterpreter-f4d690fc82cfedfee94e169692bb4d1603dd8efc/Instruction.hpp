@@ -10,8 +10,9 @@ namespace bytecodeinterpreter {
         PUSH_INT,
         POP_INT,
         PRINT_INT,
+        PRINT_STR,
         COMP_INT_LT,
-        COMP_INT_RT,
+        COMP_INT_GT,
         LOAD_INT,
         STORE_INT,
         JUMP_BY_IF_ZERO,
@@ -20,6 +21,7 @@ namespace bytecodeinterpreter {
         STORE_INT_BASEPOINTER_RELATIVE,
         CALL,
         RETURN,
+        BOOLEAN,
         NUM_INSTRUCTIONS,
         
     };

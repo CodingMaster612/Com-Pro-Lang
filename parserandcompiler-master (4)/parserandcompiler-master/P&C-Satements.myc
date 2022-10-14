@@ -1,9 +1,7 @@
-int main(){
-    int x = 10;
-    
-    if( 1 >  x ){
-
-        printNum(100);
+int main() {
+    int x  = 7;
+    if(x > 10){
+        printNum(30);
     }
    
-;} 
+;}

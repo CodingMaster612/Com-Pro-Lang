@@ -6,3 +6,10 @@ while(x < 10) {
     x += 1;
 }
 
+int x = 1;
+
+if(x < 0){
+
+    printNum(42)
+
+}

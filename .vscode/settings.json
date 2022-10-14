@@ -5,6 +5,7 @@
         "vector": "cpp",
         "stdexcept": "cpp",
         "string": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "map": "cpp"
     }
 }

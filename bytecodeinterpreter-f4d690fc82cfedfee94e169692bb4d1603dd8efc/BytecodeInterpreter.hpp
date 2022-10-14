@@ -14,6 +14,7 @@ namespace bytecodeinterpreter {
         vector<Instruction*> returnAddressStack;
         Instruction *currentInstruction;
         size_t baseIndex;
+        vector<int16_t> Check;
     };
 
     typedef void (*InstructionFunction)(InterpreterRegisters& registers);
@@ -23,6 +24,7 @@ namespace bytecodeinterpreter {
     void PushIntInstruction(InterpreterRegisters& registers);
     void PopIntInstruction(InterpreterRegisters& registers);
     void PrintIntInstruction(InterpreterRegisters& registers);
+    void PrintStringInstruction(InterpreterRegisters& registers);
     void CompareIntLessThanInstruction(InterpreterRegisters& registers);
     void CompareIntGreaterThanInstruction(InterpreterRegisters& registers);
     void LoadIntInstruction(InterpreterRegisters& registers);
@@ -33,7 +35,7 @@ namespace bytecodeinterpreter {
     void StoreIntBasepointerRelativeInstruction(InterpreterRegisters& registers);
     void CallInstruction(InterpreterRegisters& registers);
     void ReturnInstruction(InterpreterRegisters& registers);
-
+    void BooleanChecker(InterpreterRegisters& registers);
     extern InstructionFunction gInstructionFunctions[NUM_INSTRUCTIONS];
 
     class BytecodeInterpreter {

@@ -65,3 +65,32 @@ int main(){
 - import the insrtuction code to if statment bytecode 
 
 - make a bytecode if statement 
+
+
+
+
+
+
+
+lessathan sighed prints out result > does not
+
+
+
+
+
+
+
+
+
+
+
+
+int main() {
+    int x = 7;
+    if(x > 10) {
+        
+        printNum(30); ---------------------------------> works : 7 > 10 is false result 0;
+    };
+
+   
+}
