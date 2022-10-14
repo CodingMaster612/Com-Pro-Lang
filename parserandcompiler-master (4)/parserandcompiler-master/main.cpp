@@ -143,13 +143,18 @@ void GenerateCodeForStatement(const Statement &currStmt,
         {
             throw runtime_error(string("Wrong number of parameters passed to operator \"") + currStmt.mName + "\".");
         }
-        if (currStmt.mName == "+" || currStmt.mName == "<")
+        if (currStmt.mName == "+" || currStmt.mName == "<" || currStmt.mName == ">")
         {
             Opcode op = ADD_INT;
             if (currStmt.mName == "<")
             {
                 op = COMP_INT_LT;
+
+
             };
+            if(currStmt.mName == ">"){
+                op = COMP_INT_RT;
+            }
             for (auto &currParam : currStmt.mParameters)
             {
                 GenerateCodeForStatement(currParam, variableOffsets, parameters, returnCmdJumpInstructions, compiledCode, functionNameToInstruction);
@@ -198,31 +203,56 @@ void GenerateCodeForStatement(const Statement &currStmt,
         compiledCode[conditionFalseJumpInstructionOffset].p2 = int16_t(compiledCode.size() - conditionFalseJumpInstructionOffset);
         break;
     }
-
-    case StatementKind::FOR_LOOP:
-    {
-        size_t conditionOffset = compiledCode.size();
-        GenerateCodeForStatement(currStmt.mParameters[0], variableOffsets, parameters, returnCmdJumpInstructions, compiledCode, functionNameToInstruction);
-        size_t conditionFalseJumpInstructionOffset = compiledCode.size();
-        compiledCode.push_back(Instruction{bytecodeinterpreter::JUMP_BY_IF_ZERO, 0, 0});
-        for (auto stmt = currStmt.mParameters.begin() + 1; stmt != currStmt.mParameters.end(); ++stmt)
-        {
-            GenerateCodeForStatement(*stmt, variableOffsets, parameters, returnCmdJumpInstructions, compiledCode, functionNameToInstruction);
-        }
-        compiledCode.push_back(Instruction{bytecodeinterpreter::JUMP_BY, 0, int16_t(conditionOffset - compiledCode.size())});
-        compiledCode[conditionFalseJumpInstructionOffset].p2 = int16_t(compiledCode.size() - conditionFalseJumpInstructionOffset);
-        break;
-    }
     case StatementKind::POTENTIAL_IF:
     {
         
-        
+        Instruction code[] = {
+            Instruction{PUSH_INT, 0, 0}, // x
+            Instruction{LOAD_INT_BASEPOINTER_RELATIVE, 0, 0}, // load x
+            Instruction{LOAD_INT_BASEPOINTER_RELATIVE, 0, -2}, // load parameter 1
+            Instruction{COMP_INT_LT, 0, 0}, // x < 10
+            //Instruction{COMP_INT_RT, 0 , 0 },
+            Instruction{JUMP_BY_IF_ZERO, 0, 10}, // if x >= 10 bail!
 
+            Instruction{PUSH_INT, 0, 4000},
+            Instruction{PUSH_INT, 0, 1042},
+            Instruction{ADD_INT, 0, 0},
+            Instruction{PRINT_INT, 0, 0},
+
+            Instruction{LOAD_INT_BASEPOINTER_RELATIVE, 0, 0}, // load x
+            Instruction{PUSH_INT, 0, 1}, // load 1
+            Instruction{ADD_INT, 0, 0}, // x + 1
+            Instruction{STORE_INT_BASEPOINTER_RELATIVE, 0, 0}, // x = (x + 1)
+            Instruction{JUMP_BY, 0, -12}, // loop back to condition.
+
+            Instruction{PUSH_INT, 0, 0}, // load 0.
+            Instruction{LOAD_INT_BASEPOINTER_RELATIVE, 0, -2}, // load parameter 1.
+            Instruction{COMP_INT_LT, 0, 0}, // 0 < parameter 1.
+            //Instruction{COMP_INT_RT, 0 , 0}, // 0 > parameter 1.
+            Instruction{JUMP_BY_IF_ZERO, 0, 8}, // jump past recursive call.
+            Instruction{PUSH_INT, 0, 0}, // reserve space for result.
+            Instruction{LOAD_INT_BASEPOINTER_RELATIVE, 0, -2}, // load parameter 1.
+            Instruction{PUSH_INT, 0, -1}, // load -1.
+            Instruction{ADD_INT, 0, 0}, // parameter 1 - 1
+            Instruction{CALL, 0, -22}, // call ourselves.
+            Instruction{POP_INT, 0, 0}, // pop parameter.
+            Instruction{POP_INT, 0, 0}, // pop result.
+
+            Instruction{PUSH_INT, 0, 42}, // load 42
+            Instruction{STORE_INT_BASEPOINTER_RELATIVE, 0, -3}, // returnValue = 42
+            Instruction{JUMP_BY, 0, 1}, // jump to function's epilog + actually return.
+            Instruction{POP_INT, 0, 0}, // delete 'x'.
+            Instruction{RETURN, 0, 0}
+    };
+
+            // compiledCode.push_back(Instruction{op, 0, 0});
+        compiledCode.push_back(Instruction{bytecodeinterpreter::JUMP_BY_IF_ZERO, 0, 0});
+        compiledCode.push_back(Instruction{bytecodeinterpreter::COMP_INT_LT, 0, 0});
+        compiledCode.push_back(Instruction{bytecodeinterpreter::COMP_INT_RT, 0, 0});
+       
         
-        }
     }
-    // if true bool print out string or number
-    // ex: int x = 1; if{x==1}print("hello") or print(2);
+    }
 }
 
 void GenerateCodeForFunction(const FunctionDefinition &currFunc, vector<Instruction> &compiledCode,
@@ -249,7 +279,7 @@ void GenerateCodeForFunction(const FunctionDefinition &currFunc, vector<Instruct
     {
         switch (currStmt.mKind)
         {
-        case StatementKind::VARIABLE_DECLARATION: //add teh rest of the varia
+        case StatementKind::VARIABLE_DECLARATION:
             switch (currStmt.mType.mType)
             {
             case VOID:
@@ -314,6 +344,10 @@ int main(int argc, const char *argv[])
         std::cout << "ParserAndCompiler 0.1\n"
                   << endl;
 
+        // if (argc < 2) {
+        //     throw runtime_error("First argument must be script file to run.");
+        // }
+
         FILE *fh = fopen("C:\\Users\\Tim\\Documents\\GitHub\\Com-Pro-Lang\\parserandcompiler-master (4)\\parserandcompiler-master\\P&C-Satements.myc", "r");
         if (!fh)
         {
@@ -350,42 +384,42 @@ int main(int argc, const char *argv[])
             GenerateCodeForFunction(currFunc.second, compiledCode, functionNameToInstruction);
         }
 
-        //    Instruction code[] = {
-        //            Instruction{PUSH_INT, 0, 0}, // x
-        //            Instruction{LOAD_INT_BASEPOINTER_RELATIVE, 0, 0}, // load x
-        //            Instruction{LOAD_INT_BASEPOINTER_RELATIVE, 0, -2}, // load parameter 1
-        //            Instruction{COMP_INT_LT, 0, 0}, // x < 10
-        //            Instruction{JUMP_BY_IF_ZERO, 0, 10}, // if x >= 10 bail!
-
-        //            Instruction{PUSH_INT, 0, 4000},
-        //            Instruction{PUSH_INT, 0, 1042},
-        //            Instruction{ADD_INT, 0, 0},
-        //            Instruction{PRINT_INT, 0, 0},
-
-        //            Instruction{LOAD_INT_BASEPOINTER_RELATIVE, 0, 0}, // load x
-        //            Instruction{PUSH_INT, 0, 1}, // load 1
-        //            Instruction{ADD_INT, 0, 0}, // x + 1
-        //            Instruction{STORE_INT_BASEPOINTER_RELATIVE, 0, 0}, // x = (x + 1)
-        //            Instruction{JUMP_BY, 0, -12}, // loop back to condition.
-
-        //            Instruction{PUSH_INT, 0, 0}, // load 0.
-        //            Instruction{LOAD_INT_BASEPOINTER_RELATIVE, 0, -2}, // load parameter 1.
-        //            Instruction{COMP_INT_LT, 0, 0}, // 0 < parameter 1.
-        //            Instruction{JUMP_BY_IF_ZERO, 0, 8}, // jump past recursive call.
-        //            Instruction{PUSH_INT, 0, 0}, // reserve space for result.
-        //            Instruction{LOAD_INT_BASEPOINTER_RELATIVE, 0, -2}, // load parameter 1.
-        //            Instruction{PUSH_INT, 0, -1}, // load -1.
-        //            Instruction{ADD_INT, 0, 0}, // parameter 1 - 1
-        //            Instruction{CALL, 0, -22}, // call ourselves.
-        //            Instruction{POP_INT, 0, 0}, // pop parameter.
-        //            Instruction{POP_INT, 0, 0}, // pop result.
-
-        //            Instruction{PUSH_INT, 0, 42}, // load 42
-        //            Instruction{STORE_INT_BASEPOINTER_RELATIVE, 0, -3}, // returnValue = 42
-        //            Instruction{JUMP_BY, 0, 1}, // jump to function's epilog + actually return.
-        //            Instruction{POP_INT, 0, 0}, // delete 'x'.
-        //            Instruction{RETURN, 0, 0}
-        //    };
+            //    Instruction code[] = {
+            //            Instruction{PUSH_INT, 0, 0}, // x
+            //            Instruction{LOAD_INT_BASEPOINTER_RELATIVE, 0, 0}, // load x
+            //            Instruction{LOAD_INT_BASEPOINTER_RELATIVE, 0, -2}, // load parameter 1
+            //            Instruction{COMP_INT_LT, 0, 0}, // x < 10
+            //            Instruction{JUMP_BY_IF_ZERO, 0, 10}, // if x >= 10 bail!
+        
+            //            Instruction{PUSH_INT, 0, 4000},
+            //            Instruction{PUSH_INT, 0, 1042},
+            //            Instruction{ADD_INT, 0, 0},
+            //            Instruction{PRINT_INT, 0, 0},
+        
+            //            Instruction{LOAD_INT_BASEPOINTER_RELATIVE, 0, 0}, // load x
+            //            Instruction{PUSH_INT, 0, 1}, // load 1
+            //            Instruction{ADD_INT, 0, 0}, // x + 1
+            //            Instruction{STORE_INT_BASEPOINTER_RELATIVE, 0, 0}, // x = (x + 1)
+            //            Instruction{JUMP_BY, 0, -12}, // loop back to condition.
+        
+            //            Instruction{PUSH_INT, 0, 0}, // load 0.
+            //            Instruction{LOAD_INT_BASEPOINTER_RELATIVE, 0, -2}, // load parameter 1.
+            //            Instruction{COMP_INT_LT, 0, 0}, // 0 < parameter 1.
+            //            Instruction{JUMP_BY_IF_ZERO, 0, 8}, // jump past recursive call.
+            //            Instruction{PUSH_INT, 0, 0}, // reserve space for result.
+            //            Instruction{LOAD_INT_BASEPOINTER_RELATIVE, 0, -2}, // load parameter 1.
+            //            Instruction{PUSH_INT, 0, -1}, // load -1.
+            //            Instruction{ADD_INT, 0, 0}, // parameter 1 - 1
+            //            Instruction{CALL, 0, -22}, // call ourselves.
+            //            Instruction{POP_INT, 0, 0}, // pop parameter.
+            //            Instruction{POP_INT, 0, 0}, // pop result.
+        
+            //            Instruction{PUSH_INT, 0, 42}, // load 42
+            //            Instruction{STORE_INT_BASEPOINTER_RELATIVE, 0, -3}, // returnValue = 42
+            //            Instruction{JUMP_BY, 0, 1}, // jump to function's epilog + actually return.
+            //            Instruction{POP_INT, 0, 0}, // delete 'x'.
+            //            Instruction{RETURN, 0, 0}
+            //    };
 
         int16_t resultValue = 0;
         size_t mainFunctionOffset = SIZE_MAX;

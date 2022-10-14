@@ -12,6 +12,7 @@ namespace bytecodeinterpreter {
             PopIntInstruction,
             PrintIntInstruction,
             CompareIntLessThanInstruction,
+            CompareIntGreaterThanInstruction,
             LoadIntInstruction,
             StoreIntInstruction,
             JumpByIfZeroInstruction,
@@ -94,7 +95,17 @@ namespace bytecodeinterpreter {
 
         ++registers.currentInstruction;
     }
+    
+    void CompareIntGreaterThanInstruction(InterpreterRegisters& registers) {
+        int16_t rightHandSide = registers.stack.back();
+        registers.stack.pop_back();
+        int16_t leftHandSide = registers.stack.back();
+        registers.stack.pop_back();
 
+        registers.stack.push_back(leftHandSide > rightHandSide);
+
+        ++registers.currentInstruction;
+    }
     //! LOAD_INT
     void LoadIntInstruction(InterpreterRegisters& registers) {
         registers.stack.push_back(registers.stack[registers.currentInstruction->p2]);

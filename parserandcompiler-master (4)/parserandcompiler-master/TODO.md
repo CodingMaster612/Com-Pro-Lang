@@ -25,3 +25,43 @@ if statement is already registered with the parser
 - focus on the GenerateCodeForFunction and apply boolean
 
 -make suyre boolean knows its boolean 
+
+
+
+if statements - check the codition if it is true or false 
+
+
+
+LOG:: generate compare instruction COMP_INT_LT, JUMP Instruction JUMP_BY_IF_ZERO, No counter variable 
+
+1 < 2 = true , should be false
+
+7 < 2 = should be true , but false , does not print anything 
+
+
+compare lessthan instruction 
+
+compare greater than instructioib
+
+
+
+
+
+
+int main(){
+    int x = 12;
+    
+    if( 13 <  x){
+                                ------------------> result true print out number 100
+        printNum(100);
+    }
+   
+;} 
+
+
+- bytecode loops that are made by hand
+
+
+- import the insrtuction code to if statment bytecode 
+
+- make a bytecode if statement 

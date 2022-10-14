@@ -10,3 +10,10 @@ int main(int iterations) {
 
     return(x);
 }
+
+int main_test(int t){
+
+    if( x < t){
+        printNum(x);
+    }
+}
