@@ -94,3 +94,9 @@ int main() {
 
    
 }
+
+- look at video for if statements and loops what they dont neeed instruction part 4
+
+
+
+notes: Load_INT , PUSH_INT, COMP_INT_LT are 3 lines of code together for operating check

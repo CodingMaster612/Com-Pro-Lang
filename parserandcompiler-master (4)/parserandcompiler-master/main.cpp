@@ -143,7 +143,7 @@ void GenerateCodeForStatement(const Statement &currStmt,
         {
             throw runtime_error(string("Wrong number of parameters passed to operator \"") + currStmt.mName + "\".");
         }
-        if (currStmt.mName == "+" || currStmt.mName == ">" || currStmt.mName == "<")
+        if (currStmt.mName == "+" || currStmt.mName == ">")
         {
             Opcode op = ADD_INT;
             if (currStmt.mName == "<")
@@ -152,11 +152,7 @@ void GenerateCodeForStatement(const Statement &currStmt,
                 //throw runtime_error(string("Wrong  \"") + currStmt.mName + "\".");
             }
             
-            if (currStmt.mName == ">")
-            {
-                op = COMP_INT_GT;
-                 //throw runtime_error(string("Wrong  \"") + currStmt.mName + "\".");
-            }
+           
 
             for (auto &currParam : currStmt.mParameters)
             {

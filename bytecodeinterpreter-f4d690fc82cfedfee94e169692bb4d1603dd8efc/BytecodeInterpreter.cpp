@@ -11,9 +11,7 @@ namespace bytecodeinterpreter {
             PushIntInstruction,
             PopIntInstruction,
             PrintIntInstruction,
-            PrintStringInstruction,
             CompareIntLessThanInstruction,
-            CompareIntGreaterThanInstruction,
             LoadIntInstruction,
             StoreIntInstruction,
             JumpByIfZeroInstruction,
@@ -22,7 +20,6 @@ namespace bytecodeinterpreter {
             StoreIntBasepointerRelativeInstruction,
             CallInstruction,
             ReturnInstruction,
-            BooleanChecker,
     };
 
     /*static*/ void BytecodeInterpreter::Run(Instruction* code, vector<int16_t> arguments, int16_t* result) {
@@ -85,14 +82,6 @@ namespace bytecodeinterpreter {
         cout << "Number Printed: " << number << endl;
         ++registers.currentInstruction;
     }
-    
-    // PRINT_STR
-    void PrintStringInstruction(InterpreterRegisters& registers){
-        int16_t string = registers.stack.back();
-        registers.stack.pop_back();
-        cout << "String Printed: " << string << endl;
-        ++registers.currentInstruction;
-    }
 
     //! COMP_INT_LT
     void CompareIntLessThanInstruction(InterpreterRegisters& registers) {
@@ -105,17 +94,7 @@ namespace bytecodeinterpreter {
 
         ++registers.currentInstruction;
     }
-    // !COMP_INIT_RT
-    void CompareIntGreaterThanInstruction(InterpreterRegisters& registers) {
-        int16_t rightHandSide = registers.stack.back();
-        registers.stack.pop_back();
-        int16_t leftHandSide = registers.stack.back();
-        registers.stack.pop_back();
 
-        registers.stack.push_back(leftHandSide > rightHandSide );
-
-        ++registers.currentInstruction;
-    }
     //! LOAD_INT
     void LoadIntInstruction(InterpreterRegisters& registers) {
         registers.stack.push_back(registers.stack[registers.currentInstruction->p2]);
@@ -173,10 +152,6 @@ namespace bytecodeinterpreter {
         registers.baseIndex = registers.stack.back();
         registers.stack.pop_back();
         registers.currentInstruction = returnAddress;
-    }
-
-    void BooleanChecker(InterpreterRegisters & registers){
-        
     }
 
 }
