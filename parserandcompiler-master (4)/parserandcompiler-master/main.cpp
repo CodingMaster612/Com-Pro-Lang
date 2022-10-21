@@ -143,16 +143,18 @@ void GenerateCodeForStatement(const Statement &currStmt,
         {
             throw runtime_error(string("Wrong number of parameters passed to operator \"") + currStmt.mName + "\".");
         }
-        if (currStmt.mName == "+" || currStmt.mName == ">")
+        if (currStmt.mName == "+" || currStmt.mName == "<" || currStmt.mName== ">")
         {
             Opcode op = ADD_INT;
             if (currStmt.mName == "<")
             {
                 op = COMP_INT_LT;
-                //throw runtime_error(string("Wrong  \"") + currStmt.mName + "\".");
+                // throw runtime_error(string("Wrong  \"") + currStmt.mName + "\".");
             }
-            
            
+            if(currStmt.mName == ">"){
+                op = COMP_INT_RT;
+            }
 
             for (auto &currParam : currStmt.mParameters)
             {
@@ -189,6 +191,7 @@ void GenerateCodeForStatement(const Statement &currStmt,
         throw runtime_error(string("Unknown variable \"") + currStmt.mParameters[0].mName + "\".");
         break;
     }
+    
     case StatementKind::WHILE_LOOP:
     {
         size_t conditionOffset = compiledCode.size();
@@ -205,6 +208,8 @@ void GenerateCodeForStatement(const Statement &currStmt,
     }
     case StatementKind::POTENTIAL_IF:
     {
+       
+       
         
     }
     }

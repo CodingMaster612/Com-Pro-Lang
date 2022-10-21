@@ -11,6 +11,7 @@ namespace bytecodeinterpreter {
         POP_INT,
         PRINT_INT,
         COMP_INT_LT,
+        COMP_INT_RT,
         LOAD_INT,
         STORE_INT,
         JUMP_BY_IF_ZERO,

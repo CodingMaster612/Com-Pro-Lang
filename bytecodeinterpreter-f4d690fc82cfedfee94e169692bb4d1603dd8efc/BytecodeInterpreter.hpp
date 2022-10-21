@@ -24,6 +24,7 @@ namespace bytecodeinterpreter {
     void PopIntInstruction(InterpreterRegisters& registers);
     void PrintIntInstruction(InterpreterRegisters& registers);
     void CompareIntLessThanInstruction(InterpreterRegisters& registers);
+    void CompareIntGreaterThanInstruction(InterpreterRegisters& registers);
     void LoadIntInstruction(InterpreterRegisters& registers);
     void StoreIntInstruction(InterpreterRegisters& registers);
     void JumpByIfZeroInstruction(InterpreterRegisters& registers);

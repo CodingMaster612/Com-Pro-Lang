@@ -16,7 +16,7 @@ int main(int argc, char ** argv) {
             Instruction{LOAD_INT_BASEPOINTER_RELATIVE, 0, -2}, // load parameter 1
             Instruction{COMP_INT_LT, 0, 0}, // x < 10
             Instruction{JUMP_BY_IF_ZERO, 0, 10}, // if x >= 10 bail!
-
+            
             Instruction{PUSH_INT, 0, 4000},
             Instruction{PUSH_INT, 0, 1042},
             Instruction{ADD_INT, 0, 0},
