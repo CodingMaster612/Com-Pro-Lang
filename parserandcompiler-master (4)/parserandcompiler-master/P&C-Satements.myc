@@ -1,6 +1,23 @@
 void main(){
 
-    print("LOG: TEST");
-    printNum(10);
+    print("LOG : TEST");
+
     print(10);
+
+    print("");
+
+  
+
+
+    printNum("LOG: TEST");
+
+    printNum(10);
+
+    printNum("");
+
+    
+
+   
+
+    
 }

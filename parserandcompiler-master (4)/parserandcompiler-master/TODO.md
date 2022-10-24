@@ -115,3 +115,14 @@ notes: Load_INT , PUSH_INT, COMP_INT_LT are 3 lines of code together for operati
 - change registers.stack.back();
 - add varaible declare for "" to resiter as a string in the function call
 - resiters is not the answer it is stack that needs to be changed
+
+- printNum("LOG: TEST"); prints out 3 error maybe
+- print is defined and hello world is not
+- define hello world to register for the error
+
+3. -1 breaks teh compilier
+ - "" breaks the compilrer and prints out 6144
+
+important:::----------------------------------------
+ - maybe not numbers its the result varabile statemnt 
+- make string commands in instructions and implement them in print statement to test if it passes the test.

@@ -14,9 +14,7 @@ namespace bytecodeinterpreter
         PrintIntInstruction,
         PrintStringInstruction,
         CompareIntLessThanInstruction,
-
         LoadIntInstruction,
-       
         StoreIntInstruction,
         JumpByIfZeroInstruction,
         JumpByInstruction,
@@ -101,7 +99,7 @@ namespace bytecodeinterpreter
     {
         int16_t string = registers.stack.back();
         registers.stack.pop_back();
-        cout << "String Printed: " << string << endl;
+        cout << "String Printed: " << string <<endl;
         ++registers.currentInstruction;
     }
 
@@ -124,7 +122,7 @@ namespace bytecodeinterpreter
         registers.stack.push_back(registers.stack[registers.currentInstruction->p2]);
         ++registers.currentInstruction;
     }
-    //! LOAD_STRING
+    
     
 
     //! STORE_INT

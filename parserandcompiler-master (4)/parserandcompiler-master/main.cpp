@@ -88,7 +88,8 @@ void GenerateCodeForStatement(const Statement &currStmt,
         else if (currStmt.mName == "print")
         {
 
-            if(currStmt.mName == ("")){
+            if (currStmt.mName == ("LOG: TEST"))
+            {
                 throw runtime_error("Completed function call \" Null \" Test func ");
             }
             if (currStmt.mParameters.size() != 1)
@@ -387,6 +388,7 @@ int main(int argc, const char *argv[])
         //        };
 
         int16_t resultValue = 0;
+       
         size_t mainFunctionOffset = SIZE_MAX;
         auto foundFunction = functionNameToInstruction.find("main");
         if (foundFunction == functionNameToInstruction.end())
@@ -395,8 +397,9 @@ int main(int argc, const char *argv[])
         }
         BytecodeInterpreter::Run(compiledCode.data() + foundFunction->second.mInstructionOffset,
                                  {3}, &resultValue);
-
-        cout << "\nResult: " << resultValue << "\ndone." << endl;
+       
+        cout << "\nResult: " << resultValue << "\nProccess NUMBER Completed, Program Terminated." << endl;
+        cout << "\nResult: " << resultValue << "\nProccess STRING Completed, Program Terminated." << endl;
     }
     catch (exception &err)
     {

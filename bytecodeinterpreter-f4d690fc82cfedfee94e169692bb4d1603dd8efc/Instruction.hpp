@@ -5,7 +5,7 @@
 namespace bytecodeinterpreter
 {
 
-    enum Opcode : uint8_t
+    enum Opcode : uint8_t //char, unsigned
     {
         EXIT,
         ADD_INT,
@@ -14,9 +14,7 @@ namespace bytecodeinterpreter
         PRINT_INT,
         PRINT_STRING,
         COMP_INT_LT,
-
         LOAD_INT,
-        
         STORE_INT,
         JUMP_BY_IF_ZERO,
         JUMP_BY,
@@ -33,6 +31,7 @@ namespace bytecodeinterpreter
         Opcode opcode;
         uint8_t p1;
         int16_t p2;
+        
     };
 
 }
