@@ -100,3 +100,18 @@ int main() {
 
 
 notes: Load_INT , PUSH_INT, COMP_INT_LT are 3 lines of code together for operating check
+
+
+1. print strings
+- setup print statement 
+- store as a char maybe
+-utf8_str
+-  compiledCode.push_back(Instruction{bytecodeinterpreter::PRINT_STRING, 0, 0}); prints out String Printed and the number 0.
+- not int16_t because it registers with registers,stack,back()
+- could be registers.stack.back()
+
+
+2. add all string commands 
+- change registers.stack.back();
+- add varaible declare for "" to resiter as a string in the function call
+- resiters is not the answer it is stack that needs to be changed

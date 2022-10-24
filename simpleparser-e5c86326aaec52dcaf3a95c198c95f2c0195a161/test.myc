@@ -70,3 +70,8 @@ void main_test_subject(){
 
     bool name = true;
 }
+
+void main_string(){
+
+    print("hello world");
+}

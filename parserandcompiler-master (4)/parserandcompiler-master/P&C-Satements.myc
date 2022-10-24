@@ -1,4 +1,6 @@
-int main(){
+void main(){
 
-    
+    print("LOG: TEST");
+    printNum(10);
+    print(10);
 }

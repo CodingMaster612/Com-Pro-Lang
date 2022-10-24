@@ -13,6 +13,8 @@ namespace bytecodeinterpreter
     struct InterpreterRegisters
     {
         vector<int16_t> stack;
+        //vector<string> Test;
+        //vector<uint8_t> Test;
         vector<Instruction *> returnAddressStack;
         Instruction *currentInstruction;
         size_t baseIndex;
@@ -22,17 +24,28 @@ namespace bytecodeinterpreter
 
     void ExitInstruction(InterpreterRegisters &registers);
     void AddIntInstruction(InterpreterRegisters &registers);
+    //AddString
+
     void PushIntInstruction(InterpreterRegisters &registers);
+    //Push string
+
     void PopIntInstruction(InterpreterRegisters &registers);
+    //pop string
+
     void PrintIntInstruction(InterpreterRegisters &registers);
+    void PrintStringInstruction(InterpreterRegisters &registers);
     void CompareIntLessThanInstruction(InterpreterRegisters &registers);
 
     void LoadIntInstruction(InterpreterRegisters &registers);
+    //load string
     void StoreIntInstruction(InterpreterRegisters &registers);
+    //store string instruction
     void JumpByIfZeroInstruction(InterpreterRegisters &registers);
     void JumpByInstruction(InterpreterRegisters &registers);
     void LoadIntBasepointerRelativeInstruction(InterpreterRegisters &registers);
+    //Load string Base pointer
     void StoreIntBasepointerRelativeInstruction(InterpreterRegisters &registers);
+    // store String Base
     void CallInstruction(InterpreterRegisters &registers);
     void ReturnInstruction(InterpreterRegisters &registers);
 

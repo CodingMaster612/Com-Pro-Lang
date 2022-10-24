@@ -12,9 +12,11 @@ namespace bytecodeinterpreter
         PUSH_INT,
         POP_INT,
         PRINT_INT,
+        PRINT_STRING,
         COMP_INT_LT,
 
         LOAD_INT,
+        
         STORE_INT,
         JUMP_BY_IF_ZERO,
         JUMP_BY,
