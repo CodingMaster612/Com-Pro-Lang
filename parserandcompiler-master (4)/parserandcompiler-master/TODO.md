@@ -131,4 +131,5 @@ important:::----------------------------------------
 
 
 
-To-do: make string instead of int and change to unsighed char
+To-do: add string to all functions 
+- or statement if it is a string or an integer

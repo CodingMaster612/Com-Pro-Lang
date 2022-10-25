@@ -9,7 +9,7 @@ namespace bytecodeinterpreter {
         ADD_INT,
         PUSH_INT,
         POP_INT,
-        PRINT_INT,
+        PRINT_STATE,
         COMP_INT_LT,
         LOAD_INT,
         STORE_INT,
@@ -19,7 +19,15 @@ namespace bytecodeinterpreter {
         STORE_INT_BASEPOINTER_RELATIVE,
         CALL,
         RETURN,
-        NUM_INSTRUCTIONS
+        ADD_STRING,
+        PUSH_STRING,
+        POP_STRING,
+        LOAD_STRING,
+        STORE_STRING,
+        LOAD_STRING_BASEPOINTER_RELATIVE,
+        STORE_STRING_BASEPOINTER_RELATIVE,
+        NUM_INSTRUCTIONS,
+        
     };
 
     class Instruction {

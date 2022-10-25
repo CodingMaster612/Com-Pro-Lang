@@ -20,7 +20,7 @@ int main(int argc, char ** argv) {
             Instruction{PUSH_INT, 0, 4000},
             Instruction{PUSH_INT, 0, 1042},
             Instruction{ADD_INT, 0, 0},
-            Instruction{PRINT_INT, 0, 0},
+            Instruction{PRINT_STATE, 0, 0},
 
             Instruction{LOAD_INT_BASEPOINTER_RELATIVE, 0, 0}, // load x
             Instruction{PUSH_INT, 0, 1}, // load 1

@@ -22,7 +22,7 @@ namespace bytecodeinterpreter {
     void AddIntInstruction(InterpreterRegisters& registers);
     void PushIntInstruction(InterpreterRegisters& registers);
     void PopIntInstruction(InterpreterRegisters& registers);
-    void PrintIntInstruction(InterpreterRegisters& registers);
+    void PrintStateInstruction(InterpreterRegisters& registers);
     void CompareIntLessThanInstruction(InterpreterRegisters& registers);
     void LoadIntInstruction(InterpreterRegisters& registers);
     void StoreIntInstruction(InterpreterRegisters& registers);
@@ -32,7 +32,13 @@ namespace bytecodeinterpreter {
     void StoreIntBasepointerRelativeInstruction(InterpreterRegisters& registers);
     void CallInstruction(InterpreterRegisters& registers);
     void ReturnInstruction(InterpreterRegisters& registers);
-
+    void AddStringInstruction(InterpreterRegisters& registers);
+    void PushStringInstruction(InterpreterRegisters& registers);
+    void PopStringInstruction(InterpreterRegisters& registers);
+    void LoadStringInstruction(InterpreterRegisters& registers);
+    void StoreStringInstruction(InterpreterRegisters& registers);
+    void LoadStringBasepointerRelativeInstruction(InterpreterRegisters& registers);
+     void StoreStringBasepointerRelativeInstruction(InterpreterRegisters& registers);
     extern InstructionFunction gInstructionFunctions[NUM_INSTRUCTIONS];
 
     class BytecodeInterpreter {

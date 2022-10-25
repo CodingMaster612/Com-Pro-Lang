@@ -83,7 +83,7 @@ void GenerateCodeForStatement(const Statement &currStmt,
             }
             GenerateCodeForStatement(currStmt.mParameters[0], variableOffsets, parameters,
                                      returnCmdJumpInstructions, compiledCode, functionNameToInstruction);
-            //compiledCode.push_back(Instruction{bytecodeinterpreter::PRINT_STATE, 0, 0});
+            compiledCode.push_back(Instruction{bytecodeinterpreter::PRINT_STATE, 0, 0});
            
         }
         // else if (currStmt.mName == "print")
