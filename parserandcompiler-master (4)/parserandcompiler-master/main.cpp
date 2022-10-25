@@ -75,31 +75,32 @@ void GenerateCodeForStatement(const Statement &currStmt,
             returnCmdJumpInstructions.push_back(compiledCode.size());
             compiledCode.push_back(Instruction{bytecodeinterpreter::JUMP_BY, 0, 0});
         }
-        else if (currStmt.mName == "printNum")
-        {
-            if (currStmt.mParameters.size() != 1)
-            {
-                throw runtime_error("Function \"printNum\" expects a single parameter.");
-            }
-            GenerateCodeForStatement(currStmt.mParameters[0], variableOffsets, parameters,
-                                     returnCmdJumpInstructions, compiledCode, functionNameToInstruction);
-            compiledCode.push_back(Instruction{bytecodeinterpreter::PRINT_INT, 0, 0});
-        }
         else if (currStmt.mName == "print")
         {
-
-            if (currStmt.mName == ("LOG: TEST"))
-            {
-                throw runtime_error("Completed function call \" Null \" Test func ");
-            }
             if (currStmt.mParameters.size() != 1)
             {
                 throw runtime_error("Function \"print\" expects a single parameter.");
             }
             GenerateCodeForStatement(currStmt.mParameters[0], variableOffsets, parameters,
                                      returnCmdJumpInstructions, compiledCode, functionNameToInstruction);
-            compiledCode.push_back(Instruction{bytecodeinterpreter::PRINT_STRING, 0, 0});
+            //compiledCode.push_back(Instruction{bytecodeinterpreter::PRINT_STATE, 0, 0});
+           
         }
+        // else if (currStmt.mName == "print")
+        // {
+
+        //     if (currStmt.mName == ("LOG: TEST"))
+        //     {
+        //         throw runtime_error("Completed function call \" Null \" Test func ");
+        //     }
+        //     if (currStmt.mParameters.size() != 1)
+        //     {
+        //         throw runtime_error("Function \"print\" expects a single parameter.");
+        //     }
+        //     GenerateCodeForStatement(currStmt.mParameters[0], variableOffsets, parameters,
+        //                              returnCmdJumpInstructions, compiledCode, functionNameToInstruction);
+        //     compiledCode.push_back(Instruction{bytecodeinterpreter::PRINT_STRING, 0, 0});
+        // }
         else
         {
             auto foundFunction = functionNameToInstruction.find(currStmt.mName);
@@ -398,8 +399,8 @@ int main(int argc, const char *argv[])
         BytecodeInterpreter::Run(compiledCode.data() + foundFunction->second.mInstructionOffset,
                                  {3}, &resultValue);
        
-        cout << "\nResult: " << resultValue << "\nProccess NUMBER Completed, Program Terminated." << endl;
-        cout << "\nResult: " << resultValue << "\nProccess STRING Completed, Program Terminated." << endl;
+        cout << "\nResult: " << resultValue << "\nProccess Completed, Program Terminated." << endl;
+        //cout << "\nResult: " << resultValue << "\nProccess STRING Completed, Program Terminated." << endl;
     }
     catch (exception &err)
     {

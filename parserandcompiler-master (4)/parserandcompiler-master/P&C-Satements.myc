@@ -9,11 +9,7 @@ void main(){
   
 
 
-    printNum("LOG: TEST");
-
-    printNum(10);
-
-    printNum("");
+    
 
     
 

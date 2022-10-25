@@ -126,3 +126,9 @@ notes: Load_INT , PUSH_INT, COMP_INT_LT are 3 lines of code together for operati
 important:::----------------------------------------
  - maybe not numbers its the result varabile statemnt 
 - make string commands in instructions and implement them in print statement to test if it passes the test.
+
+
+
+
+
+To-do: make string instead of int and change to unsighed char

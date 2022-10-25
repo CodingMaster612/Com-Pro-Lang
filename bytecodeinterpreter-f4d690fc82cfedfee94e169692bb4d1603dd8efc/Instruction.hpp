@@ -2,17 +2,14 @@
 
 #include <cstdint>
 
-namespace bytecodeinterpreter
-{
+namespace bytecodeinterpreter {
 
-    enum Opcode : uint8_t //char, unsigned
-    {
+    enum Opcode: uint8_t {
         EXIT,
         ADD_INT,
         PUSH_INT,
         POP_INT,
         PRINT_INT,
-        PRINT_STRING,
         COMP_INT_LT,
         LOAD_INT,
         STORE_INT,
@@ -25,13 +22,11 @@ namespace bytecodeinterpreter
         NUM_INSTRUCTIONS
     };
 
-    class Instruction
-    {
+    class Instruction {
     public:
         Opcode opcode;
         uint8_t p1;
         int16_t p2;
-        
     };
 
 }
