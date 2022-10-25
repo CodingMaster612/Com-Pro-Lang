@@ -22,23 +22,14 @@ namespace bytecodeinterpreter
         StoreIntBasepointerRelativeInstruction,
         CallInstruction,
         ReturnInstruction,
-        // AddStringInstruction,
-        // PushStringInstruction,
-        // PopStringInstruction,
-        // LoadStringInstruction,
-        // StoreStringInstruction,
-        // LoadStringBasepointerRelativeInstruction,
-    };
-    InstructionFunction gInstructionFunctionString[STRING_INSTRUCTIONS] = {
-        //PrintStateInstruction,
         AddStringInstruction,
         PushStringInstruction,
         PopStringInstruction,
         LoadStringInstruction,
         StoreStringInstruction,
         LoadStringBasepointerRelativeInstruction,
-
     };
+    
     /*static*/ void BytecodeInterpreter::Run(Instruction *code, vector<int16_t> arguments, int16_t *result)
     {
         InterpreterRegisters registers{.currentInstruction = code};
@@ -118,7 +109,7 @@ namespace bytecodeinterpreter
     {
         
 
-        int16_t LiteralTestLOG = LiteralStringStatement.StringLiteral.back();
+        int16_t LiteralTestLOG = LiteralStringStatement.stack.back();
         LiteralStringStatement.stack.pop_back();
         cout << "String Printed: " << LiteralTestLOG <<endl;
         ++LiteralStringStatement.currentInstruction;

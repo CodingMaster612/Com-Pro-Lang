@@ -50,7 +50,7 @@ namespace bytecodeinterpreter
     void LoadStringBasepointerRelativeInstruction(InterpreterRegisters &registers);
     void StoreStringBasepointerRelativeInstruction(InterpreterRegisters &registers);
     extern InstructionFunction gInstructionFunctionsInteger[NUM_INSTRUCTIONS];
-    extern InstructionFunction gInstructionFunctionString[STRING_INSTRUCTIONS];
+    
    
     class BytecodeInterpreter
     {

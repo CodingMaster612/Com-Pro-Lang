@@ -163,3 +163,5 @@ List:
  - Change  &LiteralStringStatement to register as a string
  - Find the statement that prints out 0 to the terminal
  - Print out statement to terminal 
+ - implement Load Base Pointer function to register string LOG - Test
+ -change num instructions to base instructions
