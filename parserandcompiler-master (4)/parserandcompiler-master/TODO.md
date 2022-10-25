@@ -143,4 +143,23 @@ To-do: add string to all functions
 List:
  - register as string: convert int16_t to string
  - change num instructions to string instructions and seperate teh two into diffrent parts
- - change PRINT_STATE to register as a string and print string to console instead of numbers
+ - change PRINT_STATE print string to console instead of numbers 
+ 
+ 
+ 
+ 
+ - use append methods to print as string and store it in a vector, map or list and print it out to the console as a string and not  a number.
+
+ - look at result value which prints 0 instead of string
+
+ - change register to LiteralStringStatement
+
+
+
+
+ --------------------------------------------------------------------
+
+ - To do:
+ - Change  &LiteralStringStatement to register as a string
+ - Find the statement that prints out 0 to the terminal
+ - Print out statement to terminal 

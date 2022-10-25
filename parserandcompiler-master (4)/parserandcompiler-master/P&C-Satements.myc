@@ -2,9 +2,7 @@ void main(){
 
     print("LOG : TEST");
 
-    print(10);
-
-    print("");
+    
 
 
 

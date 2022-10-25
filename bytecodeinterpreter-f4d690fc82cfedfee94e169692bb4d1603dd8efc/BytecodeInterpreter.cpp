@@ -42,6 +42,7 @@ namespace bytecodeinterpreter
     /*static*/ void BytecodeInterpreter::Run(Instruction *code, vector<int16_t> arguments, int16_t *result)
     {
         InterpreterRegisters registers{.currentInstruction = code};
+        InterpreterRegisters LiteralStringStatement{.currentInstruction = code};
         
 
         if (result)
@@ -113,12 +114,16 @@ namespace bytecodeinterpreter
         ++registers.currentInstruction;
     }
     //! PRINT_STATE
-    void PrintStatementInstruction(InterpreterRegisters &registers)
+    void PrintStatementInstruction( InterpreterRegisters &LiteralStringStatement )
     {
-        int16_t state = registers.stack.back();
-        registers.stack.pop_back();
-        cout << "String Printed: " << state << endl;
-        ++registers.currentInstruction;
+        
+
+        int16_t LiteralTestLOG = LiteralStringStatement.StringLiteral.back();
+        LiteralStringStatement.stack.pop_back();
+        cout << "String Printed: " << LiteralTestLOG <<endl;
+        ++LiteralStringStatement.currentInstruction;
+
+        
     }
 
     

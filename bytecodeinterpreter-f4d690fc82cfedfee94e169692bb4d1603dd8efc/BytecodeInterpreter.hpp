@@ -13,6 +13,7 @@ namespace bytecodeinterpreter
     struct InterpreterRegisters
     {
         vector<int16_t> stack;
+        vector<string> StringLiteral;
 
         vector<Instruction *> returnAddressStack;
         Instruction *currentInstruction;
@@ -20,6 +21,7 @@ namespace bytecodeinterpreter
     };
 
     typedef void (*InstructionFunction)(InterpreterRegisters &registers);
+    typedef void (*InstructionFunction)(InterpreterRegisters &LiteralStringStatement);
     
     
     
@@ -29,7 +31,7 @@ namespace bytecodeinterpreter
     void PushIntInstruction(InterpreterRegisters &registers);
     void PopIntInstruction(InterpreterRegisters &registers);
     void PrintIntInstruction(InterpreterRegisters &registers);
-    void PrintStatementInstruction(InterpreterRegisters &registers);
+    void PrintStatementInstruction(InterpreterRegisters &LiteralStringStatement);
     void CompareIntLessThanInstruction(InterpreterRegisters &registers);
     void LoadIntInstruction(InterpreterRegisters &registers);
     void StoreIntInstruction(InterpreterRegisters &registers);
