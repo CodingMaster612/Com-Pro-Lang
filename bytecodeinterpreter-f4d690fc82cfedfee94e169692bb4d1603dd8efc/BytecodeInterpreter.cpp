@@ -6,12 +6,13 @@ namespace bytecodeinterpreter
 
     using namespace std;
 
-    InstructionFunction gInstructionFunctions[NUM_INSTRUCTIONS] = {
+    InstructionFunction gInstructionFunctionsInteger[NUM_INSTRUCTIONS] = {
         ExitInstruction,
         AddIntInstruction,
         PushIntInstruction,
         PopIntInstruction,
-        PrintStateInstruction,
+        PrintIntInstruction,
+        PrintStatementInstruction,
         CompareIntLessThanInstruction,
         LoadIntInstruction,
         StoreIntInstruction,
@@ -21,17 +22,27 @@ namespace bytecodeinterpreter
         StoreIntBasepointerRelativeInstruction,
         CallInstruction,
         ReturnInstruction,
+        // AddStringInstruction,
+        // PushStringInstruction,
+        // PopStringInstruction,
+        // LoadStringInstruction,
+        // StoreStringInstruction,
+        // LoadStringBasepointerRelativeInstruction,
+    };
+    InstructionFunction gInstructionFunctionString[STRING_INSTRUCTIONS] = {
+        //PrintStateInstruction,
         AddStringInstruction,
         PushStringInstruction,
         PopStringInstruction,
         LoadStringInstruction,
         StoreStringInstruction,
         LoadStringBasepointerRelativeInstruction,
-    };
 
+    };
     /*static*/ void BytecodeInterpreter::Run(Instruction *code, vector<int16_t> arguments, int16_t *result)
     {
         InterpreterRegisters registers{.currentInstruction = code};
+        
 
         if (result)
         {
@@ -45,8 +56,11 @@ namespace bytecodeinterpreter
 
         while (registers.currentInstruction != nullptr)
         {
-            gInstructionFunctions[registers.currentInstruction->opcode](registers);
+            gInstructionFunctionsInteger[registers.currentInstruction->opcode](registers);
+            
+
         }
+        
 
         size_t numArgs = arguments.size();
         while (numArgs--)
@@ -90,15 +104,24 @@ namespace bytecodeinterpreter
         registers.stack.pop_back();
         ++registers.currentInstruction;
     }
-
+    //! PRINT_INT
+    void PrintIntInstruction(InterpreterRegisters &registers)
+    {
+        int16_t Integer = registers.stack.back();
+        registers.stack.pop_back();
+        cout << "Integer Printed: " << Integer << endl;
+        ++registers.currentInstruction;
+    }
     //! PRINT_STATE
-    void PrintStateInstruction(InterpreterRegisters &registers)
+    void PrintStatementInstruction(InterpreterRegisters &registers)
     {
         int16_t state = registers.stack.back();
         registers.stack.pop_back();
-        cout << "State Printed: " << state << endl;
+        cout << "String Printed: " << state << endl;
         ++registers.currentInstruction;
     }
+
+    
 
     //! COMP_INT_LT
     void CompareIntLessThanInstruction(InterpreterRegisters &registers)
@@ -182,6 +205,14 @@ namespace bytecodeinterpreter
         registers.stack.pop_back();
         registers.currentInstruction = returnAddress;
     }
+
+    
+    
+    
+    
+    
+    
+    
     //! ADD_STRING
     void AddStringInstruction(InterpreterRegisters &registers)
     {
@@ -223,7 +254,7 @@ namespace bytecodeinterpreter
         registers.stack.push_back(registers.stack[registers.currentInstruction->p2 + registers.baseIndex]);
         ++registers.currentInstruction;
     }
-     //! STORE_STRING_BASEPOINTER_RELATIVE
+    //! STORE_STRING_BASEPOINTER_RELATIVE
     void StoreStringBasepointerRelativeInstruction(InterpreterRegisters &registers)
     {
         registers.stack[registers.currentInstruction->p2 + registers.baseIndex] = registers.stack.back();

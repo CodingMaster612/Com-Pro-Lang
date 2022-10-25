@@ -9,6 +9,7 @@ namespace bytecodeinterpreter {
         ADD_INT,
         PUSH_INT,
         POP_INT,
+        PRINT_INT,
         PRINT_STATE,
         COMP_INT_LT,
         LOAD_INT,
@@ -19,6 +20,7 @@ namespace bytecodeinterpreter {
         STORE_INT_BASEPOINTER_RELATIVE,
         CALL,
         RETURN,
+        //PRINT_STATE,
         ADD_STRING,
         PUSH_STRING,
         POP_STRING,
@@ -27,6 +29,7 @@ namespace bytecodeinterpreter {
         LOAD_STRING_BASEPOINTER_RELATIVE,
         STORE_STRING_BASEPOINTER_RELATIVE,
         NUM_INSTRUCTIONS,
+        STRING_INSTRUCTIONS,
         
     };
 
@@ -35,6 +38,7 @@ namespace bytecodeinterpreter {
         Opcode opcode;
         uint8_t p1;
         int16_t p2;
+       
     };
 
 }

@@ -133,3 +133,14 @@ important:::----------------------------------------
 
 To-do: add string to all functions 
 - or statement if it is a string or an integer
+
+
+
+
+
+
+
+List:
+ - register as string: convert int16_t to string
+ - change num instructions to string instructions and seperate teh two into diffrent parts
+ - change PRINT_STATE to register as a string and print string to console instead of numbers
