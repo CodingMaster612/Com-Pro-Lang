@@ -6,3 +6,53 @@ C:\\Users\\Tim\\Documents\\GitHub\\Com-Pro-Lang\\simpleparser-e5c86326aaec52dcaf
 C:\\Users\\Tim\\Documents\\GitHub\\Com-Pro-Lang\\parserandcompiler-master (4)\\parserandcompiler-master\\P&C-Satements.myc
 
 C:\\Users\Tim\\Documents\\GitHub\\Com-Pro-Lang\\parserandcompiler-master (4)\\parserandcompiler-master\\parserandcompilertest.myc
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <cassert>
+#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\bytecodeinterpreter-f4d690fc82cfedfee94e169692bb4d1603dd8efc\BytecodeInterpreter.cpp"
+#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\bytecodeinterpreter-f4d690fc82cfedfee94e169692bb4d1603dd8efc\BytecodeInterpreter.hpp"
+#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\bytecodeinterpreter-f4d690fc82cfedfee94e169692bb4d1603dd8efc\Instruction.hpp"
+#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\FunctionDefinition.cpp"
+#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\FunctionDefinition.hpp"
+#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Parser.cpp"
+#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Parser.hpp"
+#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Statement.cpp"
+#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Statement.hpp"
+#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Tokenizer.cpp"
+#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Tokenizer.hpp"
+#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Type.hpp"
+
+
+
+
+
+
+
+
+
+    void AddStringInstruction(InterpreterRegisters &registers);
+    void PushStringInstruction(InterpreterRegisters &registers);
+    void PopStringInstruction(InterpreterRegisters &registers);
+    void LoadStringInstruction(InterpreterRegisters &registers);
+    void StoreStringInstruction(InterpreterRegisters &registers);
+    void LoadStringBasepointerRelativeInstruction(InterpreterRegisters &registers);
+    void StoreStringBasepointerRelativeInstruction(InterpreterRegisters &registers);
+
+
+
+
+
+        ADD_STRING,
+        PUSH_STRING,
+        POP_STRING,
+        LOAD_STRING,
+        STORE_STRING,
+        LOAD_STRING_BASEPOINTER_RELATIVE,
+        STORE_STRING_BASEPOINTER_RELATIVE,

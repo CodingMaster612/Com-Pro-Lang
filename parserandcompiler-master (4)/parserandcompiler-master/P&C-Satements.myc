@@ -1,21 +1,4 @@
 void main(){
 
-    print("LOG : TEST");
-
-    
-
-
-
-    
-
-  
-
-
-    
-
-    
-
-   
-
-    
+    printNum(10);
 }

@@ -75,51 +75,17 @@ void GenerateCodeForStatement(const Statement &currStmt,
             returnCmdJumpInstructions.push_back(compiledCode.size());
             compiledCode.push_back(Instruction{bytecodeinterpreter::JUMP_BY, 0, 0});
         }
-        else if (currStmt.mName == "NumberPrinted")
+        else if (currStmt.mName == "printNum")
         {
             if (currStmt.mParameters.size() != 1)
             {
-                throw runtime_error("Function \"NumberPrinted\" expects a single parameter.");
+                throw runtime_error("Function \"printNum\" expects a single parameter.");
             }
             GenerateCodeForStatement(currStmt.mParameters[0], variableOffsets, parameters,
                                      returnCmdJumpInstructions, compiledCode, functionNameToInstruction);
             compiledCode.push_back(Instruction{bytecodeinterpreter::PRINT_INT, 0, 0});
         }
         
-        
-        
-        else if (currStmt.mName == "print")
-        {
-            if (currStmt.mParameters.size() != 1)
-            {
-                throw runtime_error("Function \"print\" expects a single parameter.");
-            }
-            GenerateCodeForStatement(currStmt.mParameters[0], variableOffsets, parameters,
-                                     returnCmdJumpInstructions, compiledCode, functionNameToInstruction);
-            compiledCode.push_back(Instruction{bytecodeinterpreter::PRINT_STATE,0,0});
-            compiledCode.push_back(Instruction{bytecodeinterpreter::PUSH_STRING, 0, 0});
-            compiledCode.push_back(Instruction{bytecodeinterpreter::LOAD_STRING_BASEPOINTER_RELATIVE, 0, 0});
-            //compiledCode.push_back(Instruction{bytecodeinterpreter::PUSH_STRING, 0, 0});
-            // Instruction{PUSH_INT, 0, 4000},
-            // Instruction{PUSH_INT, 0, 1042},
-            // Instruction{ADD_INT, 0, 0},
-            // Instruction{PRINT_STATE, 0, 0},
-        }
-        // else if (currStmt.mName == "print")
-        // {
-
-        //     if (currStmt.mName == ("LOG: TEST"))
-        //     {
-        //         throw runtime_error("Completed function call \" Null \" Test func ");
-        //     }
-        //     if (currStmt.mParameters.size() != 1)
-        //     {
-        //         throw runtime_error("Function \"print\" expects a single parameter.");
-        //     }
-        //     GenerateCodeForStatement(currStmt.mParameters[0], variableOffsets, parameters,
-        //                              returnCmdJumpInstructions, compiledCode, functionNameToInstruction);
-        //     compiledCode.push_back(Instruction{bytecodeinterpreter::PRINT_STRING, 0, 0});
-        // }
         else
         {
             auto foundFunction = functionNameToInstruction.find(currStmt.mName);
@@ -171,8 +137,6 @@ void GenerateCodeForStatement(const Statement &currStmt,
         case DOUBLE:
             break;
         case STRUCT:
-            break;
-        case STRING:
             break;
         }
         break;
@@ -295,8 +259,6 @@ void GenerateCodeForFunction(const FunctionDefinition &currFunc, vector<Instruct
                 break;
             case STRUCT:
                 break;
-            case STRING:
-                break;
             }
             break;
         default:
@@ -330,7 +292,8 @@ int main(int argc, const char *argv[])
         std::cout << "ParserAndCompiler 0.1\n"
                   << endl;
 
-        // if (argc < 2) {
+        // if (argc < 2)
+        // {
         //     throw runtime_error("First argument must be script file to run.");
         // }
 
@@ -408,7 +371,6 @@ int main(int argc, const char *argv[])
         //        };
 
         int16_t resultValue = 0;
-       
         size_t mainFunctionOffset = SIZE_MAX;
         auto foundFunction = functionNameToInstruction.find("main");
         if (foundFunction == functionNameToInstruction.end())
@@ -417,9 +379,8 @@ int main(int argc, const char *argv[])
         }
         BytecodeInterpreter::Run(compiledCode.data() + foundFunction->second.mInstructionOffset,
                                  {3}, &resultValue);
-       
-        cout << "\nResult: " << resultValue << "\nProccess Completed, Program Terminated." << endl;
-        //cout << "\nResult: " << resultValue << "\nProccess STRING Completed, Program Terminated." << endl;
+
+        cout << "\nResult: " << resultValue << "\ndone." << endl;
     }
     catch (exception &err)
     {

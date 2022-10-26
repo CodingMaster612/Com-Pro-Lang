@@ -165,3 +165,5 @@ List:
  - Print out statement to terminal 
  - implement Load Base Pointer function to register string LOG - Test
  -change num instructions to base instructions
+ - try to change LiteralTestLOG statement to a pointer & or * to register as a string
+ -try switching string result value to string result = ""
