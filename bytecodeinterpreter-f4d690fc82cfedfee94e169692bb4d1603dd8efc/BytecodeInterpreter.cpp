@@ -20,10 +20,12 @@ namespace bytecodeinterpreter {
             StoreIntBasepointerRelativeInstruction,
             CallInstruction,
             ReturnInstruction,
+            PrintStatementInstruction,
     };
 
     /*static*/ void BytecodeInterpreter::Run(Instruction* code, vector<int16_t> arguments, int16_t* result) {
         InterpreterRegisters registers{ .currentInstruction = code };
+        InterpreterRegisters x{ .currentInstruction = code };
 
         if (result) {
             registers.stack.push_back(0);
@@ -153,5 +155,15 @@ namespace bytecodeinterpreter {
         registers.stack.pop_back();
         registers.currentInstruction = returnAddress;
     }
+    //!PRINT_STATE
+    void PrintStatementInstruction(InterpreterRegisters &x){
+        int16_t strings = strings;
+        string message;
+        //registers.stack.pop_back();
+        cout << "String  Printed: " << message << strings <<endl;
+        ++x.currentInstruction;
+
+        //this is where its printing zero (0) registers.stack.back();
+    }   //int16_t is printing the (0)
 
 }

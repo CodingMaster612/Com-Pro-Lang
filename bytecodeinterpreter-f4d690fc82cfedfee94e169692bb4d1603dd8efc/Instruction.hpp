@@ -19,6 +19,7 @@ namespace bytecodeinterpreter {
         STORE_INT_BASEPOINTER_RELATIVE,
         CALL,
         RETURN,
+        PRINT_STATE,
         NUM_INSTRUCTIONS
     };
 
@@ -27,6 +28,7 @@ namespace bytecodeinterpreter {
         Opcode opcode;
         uint8_t p1;
         int16_t p2;
+        
     };
 
 }

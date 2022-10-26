@@ -167,3 +167,5 @@ List:
  -change num instructions to base instructions
  - try to change LiteralTestLOG statement to a pointer & or * to register as a string
  -try switching string result value to string result = ""
+ - teh iterations in while loop and in main.cpp are counting the number of iterations
+ - find where its printing zero and change it to a string

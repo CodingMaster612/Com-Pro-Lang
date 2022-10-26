@@ -11,12 +11,17 @@ namespace bytecodeinterpreter {
 
     struct InterpreterRegisters {
         vector<int16_t> stack;
+        
+        vector<string> stringLiteral;
+        
         vector<Instruction*> returnAddressStack;
         Instruction *currentInstruction;
         size_t baseIndex;
     };
 
     typedef void (*InstructionFunction)(InterpreterRegisters& registers);
+    //typedef void (*InstructionFunction)(InterpreterRegisters& x);
+
 
     void ExitInstruction(InterpreterRegisters& registers);
     void AddIntInstruction(InterpreterRegisters& registers);
@@ -32,6 +37,8 @@ namespace bytecodeinterpreter {
     void StoreIntBasepointerRelativeInstruction(InterpreterRegisters& registers);
     void CallInstruction(InterpreterRegisters& registers);
     void ReturnInstruction(InterpreterRegisters& registers);
+    typedef void (*InstructionFunction)(InterpreterRegisters& x);
+    void PrintStatementInstruction(InterpreterRegisters &x);
 
     extern InstructionFunction gInstructionFunctions[NUM_INSTRUCTIONS];
 

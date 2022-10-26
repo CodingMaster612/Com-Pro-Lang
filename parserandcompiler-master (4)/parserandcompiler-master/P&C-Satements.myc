@@ -1,4 +1,7 @@
 void main(){
 
-    printNum(10);
-}
+    print("hello");
+;}
+
+
+

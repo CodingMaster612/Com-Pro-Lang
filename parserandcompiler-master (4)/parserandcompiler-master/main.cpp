@@ -75,17 +75,33 @@ void GenerateCodeForStatement(const Statement &currStmt,
             returnCmdJumpInstructions.push_back(compiledCode.size());
             compiledCode.push_back(Instruction{bytecodeinterpreter::JUMP_BY, 0, 0});
         }
-        else if (currStmt.mName == "printNum")
+        else if (currStmt.mName == "NumberPrinted")
         {
             if (currStmt.mParameters.size() != 1)
             {
-                throw runtime_error("Function \"printNum\" expects a single parameter.");
+                throw runtime_error("Function \"NumberPrinted\" expects a single parameter.");
             }
             GenerateCodeForStatement(currStmt.mParameters[0], variableOffsets, parameters,
                                      returnCmdJumpInstructions, compiledCode, functionNameToInstruction);
             compiledCode.push_back(Instruction{bytecodeinterpreter::PRINT_INT, 0, 0});
         }
-        
+        else if (currStmt.mName == "print")
+
+        {
+            
+            if (currStmt.mParameters.size() != 1)
+            {
+                throw runtime_error("Function \"print\" expects a single parameter.");
+            }
+            
+            GenerateCodeForStatement(currStmt.mParameters[0], variableOffsets, parameters,
+                                     returnCmdJumpInstructions, compiledCode, functionNameToInstruction);
+            compiledCode.push_back(Instruction{bytecodeinterpreter::PRINT_STATE, 0 , 0});
+            //compiledCode.push_back(Instruction{bytecodeinterpreter::RETURN, 0 , 0, "hello"});
+            
+            
+        }
+
         else
         {
             auto foundFunction = functionNameToInstruction.find(currStmt.mName);
@@ -137,6 +153,10 @@ void GenerateCodeForStatement(const Statement &currStmt,
         case DOUBLE:
             break;
         case STRUCT:
+            break;
+        case STRING:
+            break;
+        case BOOL:
             break;
         }
         break;
@@ -200,6 +220,21 @@ void GenerateCodeForStatement(const Statement &currStmt,
         compiledCode[conditionFalseJumpInstructionOffset].p2 = int16_t(compiledCode.size() - conditionFalseJumpInstructionOffset);
         break;
     }
+    // case StatementKind::POTENTIAL_IF:
+    // {
+    //     size_t conditionOffset = compiledCode.size();
+    //     GenerateCodeForStatement(currStmt.mParameters[0], variableOffsets, parameters, returnCmdJumpInstructions, compiledCode, functionNameToInstruction);
+    //     size_t conditionFalseJumpInstructionOffset = compiledCode.size();
+    //     compiledCode.push_back(Instruction{bytecodeinterpreter::JUMP_BY_IF_ZERO, 0, 0});
+    //     for (auto stmt = currStmt.mParameters.begin() + 1; stmt != currStmt.mParameters.end(); ++stmt)
+    //     {
+    //         GenerateCodeForStatement(*stmt, variableOffsets, parameters, returnCmdJumpInstructions, compiledCode, functionNameToInstruction);
+    //     }
+    //     compiledCode.push_back(Instruction{bytecodeinterpreter::PRINT_STATE, 0, 0});
+    //     // compiledCode.push_back(Instruction{bytecodeinterpreter::JUMP_BY, 0, int16_t(conditionOffset - compiledCode.size())});
+    //     compiledCode[conditionFalseJumpInstructionOffset].p2 = int16_t(compiledCode.size() - conditionFalseJumpInstructionOffset);
+    //     break;
+    // }
     }
 }
 
@@ -258,6 +293,10 @@ void GenerateCodeForFunction(const FunctionDefinition &currFunc, vector<Instruct
             case DOUBLE:
                 break;
             case STRUCT:
+                break;
+            case STRING:
+                break;
+            case BOOL:
                 break;
             }
             break;
@@ -371,6 +410,7 @@ int main(int argc, const char *argv[])
         //        };
 
         int16_t resultValue = 0;
+
         size_t mainFunctionOffset = SIZE_MAX;
         auto foundFunction = functionNameToInstruction.find("main");
         if (foundFunction == functionNameToInstruction.end())
