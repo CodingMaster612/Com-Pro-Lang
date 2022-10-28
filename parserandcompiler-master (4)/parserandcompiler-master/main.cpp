@@ -97,7 +97,7 @@ void GenerateCodeForStatement(const Statement &currStmt,
             GenerateCodeForStatement(currStmt.mParameters[0], variableOffsets, parameters,
                                      returnCmdJumpInstructions, compiledCode, functionNameToInstruction);
             compiledCode.push_back(Instruction{bytecodeinterpreter::PRINT_STATE, 0 , 0});
-            //compiledCode.push_back(Instruction{bytecodeinterpreter::RETURN, 0 , 0, "hello"});
+            
             
             
         }
@@ -410,6 +410,7 @@ int main(int argc, const char *argv[])
         //        };
 
         int16_t resultValue = 0;
+        
 
         size_t mainFunctionOffset = SIZE_MAX;
         auto foundFunction = functionNameToInstruction.find("main");
