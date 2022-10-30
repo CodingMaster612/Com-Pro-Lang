@@ -169,3 +169,11 @@ List:
  -try switching string result value to string result = ""
  - teh iterations in while loop and in main.cpp are counting the number of iterations
  - find where its printing zero and change it to a string
+
+
+
+
+
+
+
+ - print out stamentkind::literal
