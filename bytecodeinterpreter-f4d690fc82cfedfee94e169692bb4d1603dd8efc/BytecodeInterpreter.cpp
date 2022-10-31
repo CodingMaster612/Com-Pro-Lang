@@ -1,6 +1,8 @@
 #include "BytecodeInterpreter.hpp"
+//#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Statement.hpp"
 
 #include <iostream>
+#include <vector>
 
 namespace bytecodeinterpreter
 {
@@ -181,11 +183,14 @@ namespace bytecodeinterpreter
     //! PRINT_STATE
     void PrintStatementInstruction(InterpreterRegisters &registers)
     {
-      
+        // int16_t LITERAL = registers.stack.back();
+        // registers.stack.pop_back();
+        // cout << "string Printed: " << LITERAL << endl;
+        // ++registers.currentInstruction;
         
-        ++registers.currentInstruction;
-
-        // this is where its printing zero (0) registers.stack.back();
-    } // int16_t is printing the (0)
-
+        
+        
+        
+    }
+    
 }

@@ -177,3 +177,7 @@ List:
 
 
  - print out stamentkind::literal
+
+
+
+ -look at main.cpp and add string value to print the data &resultvalue =0, & resultString = ""
