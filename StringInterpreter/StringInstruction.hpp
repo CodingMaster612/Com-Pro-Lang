@@ -13,7 +13,7 @@ namespace Stringinterpreter
         STRING_INSTRUCTIONS
     };
 
-    class StingInstruction
+    class StringInstruction
     {
     public:
         Opcode opcode;

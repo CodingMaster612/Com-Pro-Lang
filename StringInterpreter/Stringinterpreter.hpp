@@ -11,11 +11,16 @@ namespace Stringinterpreter
     using namespace std;
 
     struct StringInterpreterRegisters
-    {
+    {   
+        
+        vector<string> stack;
+        vector<StringInstruction *> returnStringAddress;
+        StringInstruction *currentInstruction;
+        size_t baseIndex;
     };
     
     
-    void PrintStringInstruction(StringInterpreterRegisters &registers);
+    void PrintStringInstruction(StringInterpreterRegisters &placeholder);
     typedef void (*StringInstructionFunction)(StringInterpreterRegisters &placeholder);
 
     extern StringInstructionFunction gInstructionFunctions[STRING_INSTRUCTIONS];
@@ -23,7 +28,7 @@ namespace Stringinterpreter
     class StringInterpreter
     {
     public:
-        static void Run(Instruction *code, vector<string> arguments, string *result = nullptr);
+        static void Run(StringInstruction *code, vector<string> arguments, string *result = nullptr);
     };
 
 }
