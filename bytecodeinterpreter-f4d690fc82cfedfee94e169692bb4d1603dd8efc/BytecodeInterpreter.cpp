@@ -1,5 +1,6 @@
 #include "BytecodeInterpreter.hpp"
-//#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Statement.hpp"
+//#include "C:\\Users\\Tim\\Documents\\GitHub\\Com-Pro-Lang\\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Tokenizer.cpp"
+//#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Tokenizer.hpp"
 
 #include <iostream>
 #include <vector>
@@ -24,7 +25,7 @@ namespace bytecodeinterpreter
         StoreIntBasepointerRelativeInstruction,
         CallInstruction,
         ReturnInstruction,
-        PrintStatementInstruction,
+       
     };
 
     /*static*/ void BytecodeInterpreter::Run(Instruction *code, vector<int16_t> arguments, int16_t *result)
@@ -180,17 +181,6 @@ namespace bytecodeinterpreter
         registers.stack.pop_back();
         registers.currentInstruction = returnAddress;
     }
-    //! PRINT_STATE
-    void PrintStatementInstruction(InterpreterRegisters &registers)
-    {
-        // int16_t LITERAL = registers.stack.back();
-        // registers.stack.pop_back();
-        // cout << "string Printed: " << LITERAL << endl;
-        // ++registers.currentInstruction;
-        
-        
-        
-        
-    }
-    
+   
+
 }

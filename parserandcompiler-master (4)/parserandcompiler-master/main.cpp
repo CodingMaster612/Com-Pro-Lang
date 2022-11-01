@@ -97,8 +97,6 @@ void GenerateCodeForStatement(const Statement &currStmt,
             GenerateCodeForStatement(currStmt.mParameters[0], variableOffsets, parameters,
                                      returnCmdJumpInstructions, compiledCode, functionNameToInstruction);
             
-
-            //compiledCode.push_back(Instruction{bytecodeinterpreter::PRINT_STATE, 0, 0});
         }
 
         else
@@ -154,7 +152,6 @@ void GenerateCodeForStatement(const Statement &currStmt,
         case STRUCT:
             break;
         case STRING:
-       
 
             break;
 
@@ -412,6 +409,7 @@ int main(int argc, const char *argv[])
         //        };
 
         int16_t resultValue = 0;
+        // string StringResult = "";
 
         size_t mainFunctionOffset = SIZE_MAX;
         auto foundFunction = functionNameToInstruction.find("main");
@@ -419,10 +417,16 @@ int main(int argc, const char *argv[])
         {
             throw runtime_error("Couldn't find main function.");
         }
+
         BytecodeInterpreter::Run(compiledCode.data() + foundFunction->second.mInstructionOffset,
                                  {3}, &resultValue);
 
-        cout << "\nResult: " << resultValue << "\ndone." << endl;
+        // BytecodeInterpreter::Run(compiledCode.data() + foundFunction->second.mInstructionOffset,
+        //                         {3} , &StringResult);
+
+        cout << "\nIntegerResult: " << resultValue << "\nPrinting Integer completed." << endl;
+
+        // cout << "\nIntegerResult: " << StringResult << "\nPrinting String completed." << endl;
     }
     catch (exception &err)
     {

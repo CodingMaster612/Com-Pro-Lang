@@ -19,7 +19,7 @@ namespace bytecodeinterpreter {
         STORE_INT_BASEPOINTER_RELATIVE,
         CALL,
         RETURN,
-        PRINT_STATE,
+        
         NUM_INSTRUCTIONS
     };
 

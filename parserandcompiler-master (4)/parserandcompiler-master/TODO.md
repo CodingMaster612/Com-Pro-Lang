@@ -181,3 +181,9 @@ List:
 
 
  -look at main.cpp and add string value to print the data &resultvalue =0, & resultString = ""
+
+
+
+ - print out STRING_LITERAL
+ - make string bytecode interprter and add &stringresult to main.cpp to run
+ -
