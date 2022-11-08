@@ -12,9 +12,12 @@
 #include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Tokenizer.cpp"
 #include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Tokenizer.hpp"
 #include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\simpleparser-e5c86326aaec52dcaf3a95c198c95f2c0195a161\Type.hpp"
-
+#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\StringInterpreter\StringInstruction.hpp"
+#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\StringInterpreter\Stringinstruction.cpp"
+#include "C:\Users\Tim\Documents\GitHub\Com-Pro-Lang\StringInterpreter\Stringinterpreter.hpp"
 using namespace std;
 using namespace simpleparser;
+using namespace Stringinterpreter;
 using namespace bytecodeinterpreter;
 
 struct Parameter
@@ -363,6 +366,7 @@ int main(int argc, const char *argv[])
         parser.debugPrint();
 
         vector<Instruction> compiledCode;
+        vector<StringInstruction> ScompiledCode;
 
         map<string, FunctionDefinition> functions = parser.GetFunctions();
         map<string, CompiledFunction> functionNameToInstruction;
@@ -409,7 +413,7 @@ int main(int argc, const char *argv[])
         //        };
 
         int16_t resultValue = 0;
-        // string StringResult = "";
+        //string StringValue = "";
 
         size_t mainFunctionOffset = SIZE_MAX;
         auto foundFunction = functionNameToInstruction.find("main");
@@ -421,9 +425,7 @@ int main(int argc, const char *argv[])
         BytecodeInterpreter::Run(compiledCode.data() + foundFunction->second.mInstructionOffset,
                                  {3}, &resultValue);
 
-        // BytecodeInterpreter::Run(compiledCode.data() + foundFunction->second.mInstructionOffset,
-        //                         {3} , &StringResult);
-
+        
         cout << "\nIntegerResult: " << resultValue << "\nPrinting Integer completed." << endl;
 
         // cout << "\nIntegerResult: " << StringResult << "\nPrinting String completed." << endl;

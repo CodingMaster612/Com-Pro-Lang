@@ -5,7 +5,7 @@
 namespace Stringinterpreter
 {
 
-    enum Opcode : uint8_t
+    enum code : uint8_t
     {
         PRINT_STATE,
         LOAD_STATE,
@@ -16,7 +16,7 @@ namespace Stringinterpreter
     class StringInstruction
     {
     public:
-        Opcode opcode;
+        code opcode;
         // uint8_t p1;
         // int16_t p2;
     };

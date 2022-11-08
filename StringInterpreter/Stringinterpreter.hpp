@@ -13,7 +13,7 @@ namespace Stringinterpreter
     struct StringInterpreterRegisters
     {   
         
-        vector<string> stack;
+        vector<string> String;
         vector<StringInstruction *> returnStringAddress;
         StringInstruction *currentInstruction;
         size_t baseIndex;
@@ -28,7 +28,7 @@ namespace Stringinterpreter
     class StringInterpreter
     {
     public:
-        static void Run(StringInstruction *code, vector<string> arguments, string *result = nullptr);
+        static void Run(StringInstruction *code, string *result = nullptr);
     };
 
 }
